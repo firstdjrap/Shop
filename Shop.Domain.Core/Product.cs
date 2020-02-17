@@ -11,7 +11,7 @@ namespace Shop.Domain.Core
         public int RentId { get; set; }
         public Rent Rent { get; set; }
         public int SubsidiaryId { get; set; }
-        public Subsidiary Subsidiary { get; set; }
+        public BranchOffice BranchOffice { get; set; }
         public int StorageId { get; set; }
         public Storage Storage { get; set; }
 

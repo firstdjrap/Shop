@@ -9,7 +9,7 @@ namespace Shop.Domain.Core
 
         public ICollection<Product> Products { get; set; }
         public int SubsidiaryId { get; set; }
-        public Subsidiary Subsidiary { get; set; }
+        public BranchOffice BranchOffice { get; set; }
         public int StorageId { get; set; }
         public Storage Storage { get; set; }
         public string WhereTo { get; set; }

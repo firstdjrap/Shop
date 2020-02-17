@@ -2,7 +2,7 @@
 
 namespace Shop.Domain.Core
 {
-    public class Personnel
+    public class Employee
     {
         public int Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace Shop.Domain.Core
         public int StorageId { get; set; }
         public Storage Storage { get; set; }
         public int SubsidiaryId { get; set; }
-        public Subsidiary Subsidiary { get; set; }
+        public BranchOffice BranchOffice { get; set; }
 
         public DateTime CreatedAt { get; set; }
     }
