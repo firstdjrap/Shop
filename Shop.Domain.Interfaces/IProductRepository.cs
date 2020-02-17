@@ -1,16 +1,15 @@
 ﻿using Shop.Domain.Core;
-using System;
 using System.Collections.Generic;
 
 namespace Shop.Domain.Interfaces
 {
-    public interface IProductRepository : IDisposable
+    public interface IProductRepository
     {
-        IEnumerable<Product> GetProductList();
-        Product GetProduct(int id);
         void AddProduct(Product product);
+        void DelProdect(int id);
         void EditProduct(Product product);
-        void DelProdect(Product product);
+        Product GetProduct(int id);
+        IEnumerable<Product> GetProductList();
         void Save();
     }
 }
