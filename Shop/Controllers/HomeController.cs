@@ -18,13 +18,13 @@ namespace Shop.Controllers
 
         public ActionResult Index()
         {
-            var product = productRepository.GetProductList();
+            var product = productRepository.GetList();
             return View(product);
         }
 
         public ActionResult Buy(int id)
         {
-            Product product = productRepository.GetProduct(id);
+            Product product = productRepository.Get(id);
             order.MakeOrder(product);
             return View();
         }

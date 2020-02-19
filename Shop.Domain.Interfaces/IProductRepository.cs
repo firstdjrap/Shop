@@ -5,11 +5,11 @@ namespace Shop.Domain.Interfaces
 {
     public interface IProductRepository
     {
-        void AddProduct(Product product);
-        void DelProdect(int id);
-        void EditProduct(Product product);
-        Product GetProduct(int id);
-        IEnumerable<Product> GetProductList();
+        void Add(Product product);
+        void Del(int id);
+        void Edit(Product product);
+        Product Get(int id);
+        IEnumerable<Product> GetList();
         void Save();
     }
 }

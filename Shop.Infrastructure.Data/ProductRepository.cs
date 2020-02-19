@@ -15,29 +15,29 @@ namespace Shop.Infrastructure.Data
             orderContext = new OrderContext(connection);
         }
 
-        public void AddProduct(Product product)
+        public void Add(Product product)
         {
             orderContext.Products.Add(product);
         }
 
-        public void DelProdect(int id)
+        public void Del(int id)
         {
             Product product = orderContext.Products.Find(id);
             if (product != null)
                 orderContext.Products.Remove(product);
         }
 
-        public void EditProduct(Product product)
+        public void Edit(Product product)
         {
             orderContext.Entry(product).State = EntityState.Modified;
         }
 
-        public Product GetProduct(int id)
+        public Product Get(int id)
         {
             return orderContext.Products.Find(id);
         }
 
-        public IEnumerable<Product> GetProductList()
+        public IEnumerable<Product> GetList()
         {
             return orderContext.Products.ToList();
         }
