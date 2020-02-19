@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Shop.Domain.Interfaces
 {
-    public interface IPurchaseReturn
+    public interface IPurchaseReturnRepository
     {
         void Add(PurchaseReturn product);
         void Del(int id);
