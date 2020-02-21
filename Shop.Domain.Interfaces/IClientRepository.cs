@@ -6,7 +6,7 @@ namespace Shop.Domain.Interfaces
     public interface IClientRepository
     {
         void Add(Client product);
-        void Del(int id);
+        void Delete(int id);
         void Edit(Client product);
         Client Get(int id);
         IEnumerable<Client> GetList();

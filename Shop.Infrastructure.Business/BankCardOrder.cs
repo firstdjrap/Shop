@@ -3,11 +3,11 @@ using Shop.Services.Interfaces;
 
 namespace Shop.Infrastructure.Business
 {
-    public class CacheOrder : IOrder
+    public class BankCardOrder : IOrder
     {
         public void MakeOrder(Product product)
         {
-            // код покупки книги при оплате наличностью
+
         }
     }
 }

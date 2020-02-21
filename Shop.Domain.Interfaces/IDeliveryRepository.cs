@@ -6,7 +6,7 @@ namespace Shop.Domain.Interfaces
     public interface IDeliveryRepository
     {
         void Add(Delivery product);
-        void Del(int id);
+        void Delete(int id);
         void Edit(Delivery product);
         Delivery Get(int id);
         IEnumerable<Delivery> GetList();

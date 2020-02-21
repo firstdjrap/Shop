@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class DiscountCardRepository : IDiscountCardRepository
     {
-        private readonly OrderContext orderContext;
+        private readonly ShopContext shopContext;
 
-        public DiscountCardRepository(DbContextOptions<OrderContext> connection)
+        public DiscountCardRepository(DbContextOptions<ShopContext> connection)
         {
-            orderContext = new OrderContext(connection);
+            shopContext = new ShopContext(connection);
         }
 
         public void Add(DiscountCard discountCard)
         {
-            orderContext.DiscountCards.Add(discountCard);
+            shopContext.DiscountCards.Add(discountCard);
         }
 
-        public void Del(int id)
+        public void Delete(int id)
         {
-            DiscountCard discountCard = orderContext.DiscountCards.Find(id);
+            DiscountCard discountCard = shopContext.DiscountCards.Find(id);
             if (discountCard != null)
-                orderContext.DiscountCards.Remove(discountCard);
+                shopContext.DiscountCards.Remove(discountCard);
         }
 
         public void Edit(DiscountCard discountCard)
         {
-            orderContext.Entry(discountCard).State = EntityState.Modified;
+            shopContext.Entry(discountCard).State = EntityState.Modified;
         }
 
         public DiscountCard Get(int id)
         {
-            return orderContext.DiscountCards.Find(id);
+            return shopContext.DiscountCards.Find(id);
         }
 
         public IEnumerable<DiscountCard> GetList()
         {
-            return orderContext.DiscountCards.ToList();
+            return shopContext.DiscountCards.ToList();
         }
 
         public void Save()
         {
-            orderContext.SaveChanges();
+            shopContext.SaveChanges();
         }
     }
 }

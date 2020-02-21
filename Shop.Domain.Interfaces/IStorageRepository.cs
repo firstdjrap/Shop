@@ -6,7 +6,7 @@ namespace Shop.Domain.Interfaces
     public interface IStorageRepository
     {
         void Add(Storage product);
-        void Del(int id);
+        void Delete(int id);
         void Edit(Storage product);
         Storage Get(int id);
         IEnumerable<Storage> GetList();

@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class StorageRepository : IStorageRepository
     {
-        private readonly OrderContext orderContext;
+        private readonly ShopContext shopContext;
 
-        public StorageRepository(DbContextOptions<OrderContext> connection)
+        public StorageRepository(DbContextOptions<ShopContext> connection)
         {
-            orderContext = new OrderContext(connection);
+            shopContext = new ShopContext(connection);
         }
 
         public void Add(Storage storage)
         {
-            orderContext.Storages.Add(storage);
+            shopContext.Storages.Add(storage);
         }
 
-        public void Del(int id)
+        public void Delete(int id)
         {
-            Storage storage = orderContext.Storages.Find(id);
+            Storage storage = shopContext.Storages.Find(id);
             if (storage != null)
-                orderContext.Storages.Remove(storage);
+                shopContext.Storages.Remove(storage);
         }
 
         public void Edit(Storage storage)
         {
-            orderContext.Entry(storage).State = EntityState.Modified;
+            shopContext.Entry(storage).State = EntityState.Modified;
         }
 
         public Storage Get(int id)
         {
-            return orderContext.Storages.Find(id);
+            return shopContext.Storages.Find(id);
         }
 
         public IEnumerable<Storage> GetList()
         {
-            return orderContext.Storages.ToList();
+            return shopContext.Storages.ToList();
         }
 
         public void Save()
         {
-            orderContext.SaveChanges();
+            shopContext.SaveChanges();
         }
     }
 }

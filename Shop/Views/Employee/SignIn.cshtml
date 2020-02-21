@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Вход";
+}
+<input type="text" id="phoneNumber" size="30" placeholder="Введите номер телефона" />
+<input type="password" id="password" size="30" placeholder="Введите пароль" />
+<input type="submit" onclick="Login()" value="Войти" />
+<a class="nav-link text-dark" asp-area="" asp-controller="employee" asp-action="signup">Регистрация</a>
+<script>
+    function postContext(controller, action, body) {
+        return fetch("/" + controller + "/" + action, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json",
+                "Action": action
+            },
+            body: body
+        });
+    }
+
+    function Login() {
+        postContext("Employee", "SignIn", JSON.stringify({
+            PhoneNumber: parseInt(phoneNumber.value, 10),
+            Password: password.value
+        }))
+            .then(response => response.json())
+            .then(function (commits) {
+                if (commits == "Success") {
+                    alert("Добро пожаловать!");
+                    window.location.href = "/";
+                }
+                else {
+                    alert(commits);
+                    password.value = "";
+                }
+            });
+    }
+</script>

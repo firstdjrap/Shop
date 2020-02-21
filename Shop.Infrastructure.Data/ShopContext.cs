@@ -3,9 +3,9 @@ using Shop.Domain.Core;
 
 namespace Shop.Infrastructure.Data
 {
-    public class OrderContext : DbContext
+    public class ShopContext : DbContext
     {
-        public OrderContext(DbContextOptions<OrderContext> options) : base(options)
+        public ShopContext(DbContextOptions<ShopContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

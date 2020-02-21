@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class DeliveryRepository : IDeliveryRepository
     {
-        private readonly OrderContext orderContext;
+        private readonly ShopContext shopContext;
 
-        public DeliveryRepository(DbContextOptions<OrderContext> connection)
+        public DeliveryRepository(DbContextOptions<ShopContext> connection)
         {
-            orderContext = new OrderContext(connection);
+            shopContext = new ShopContext(connection);
         }
 
         public void Add(Delivery delivery)
         {
-            orderContext.Deliveries.Add(delivery);
+            shopContext.Deliveries.Add(delivery);
         }
 
-        public void Del(int id)
+        public void Delete(int id)
         {
-            Delivery delivery = orderContext.Deliveries.Find(id);
+            Delivery delivery = shopContext.Deliveries.Find(id);
             if (delivery != null)
-                orderContext.Deliveries.Remove(delivery);
+                shopContext.Deliveries.Remove(delivery);
         }
 
         public void Edit(Delivery delivery)
         {
-            orderContext.Entry(delivery).State = EntityState.Modified;
+            shopContext.Entry(delivery).State = EntityState.Modified;
         }
 
         public Delivery Get(int id)
         {
-            return orderContext.Deliveries.Find(id);
+            return shopContext.Deliveries.Find(id);
         }
 
         public IEnumerable<Delivery> GetList()
         {
-            return orderContext.Deliveries.ToList();
+            return shopContext.Deliveries.ToList();
         }
 
         public void Save()
         {
-            orderContext.SaveChanges();
+            shopContext.SaveChanges();
         }
     }
 }

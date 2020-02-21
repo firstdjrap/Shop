@@ -6,7 +6,7 @@ namespace Shop.Domain.Interfaces
     public interface IPurchaseReturnRepository
     {
         void Add(PurchaseReturn product);
-        void Del(int id);
+        void Delete(int id);
         void Edit(PurchaseReturn product);
         PurchaseReturn Get(int id);
         IEnumerable<PurchaseReturn> GetList();

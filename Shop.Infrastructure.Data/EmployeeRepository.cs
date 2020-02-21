@@ -8,43 +8,53 @@ namespace Shop.Infrastructure.Data
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly OrderContext orderContext;
+        private readonly ShopContext shopContext;
 
-        public EmployeeRepository(DbContextOptions<OrderContext> connection)
+        public EmployeeRepository(DbContextOptions<ShopContext> connection)
         {
-            orderContext = new OrderContext(connection);
+            shopContext = new ShopContext(connection);
         }
 
         public void Add(Employee employee)
         {
-            orderContext.Employees.Add(employee);
+            shopContext.Employees.Add(employee);
         }
 
-        public void Del(int id)
+        public void Delete(int id)
         {
-            Employee employee = orderContext.Employees.Find(id);
+            Employee employee = shopContext.Employees.Find(id);
             if (employee != null)
-                orderContext.Employees.Remove(employee);
+                shopContext.Employees.Remove(employee);
         }
 
         public void Edit(Employee employee)
         {
-            orderContext.Entry(employee).State = EntityState.Modified;
+            shopContext.Entry(employee).State = EntityState.Modified;
         }
 
-        public Employee Get(int id)
+        public Employee VerifyEmployee(Employee employee)
         {
-            return orderContext.Employees.Find(id);
+            return shopContext.Employees.FirstOrDefault(e => e.PhoneNumber == employee.PhoneNumber && e.Password == employee.Password);
+        }
+
+        public Employee GetById(int id)
+        {
+            return shopContext.Employees.Find(id);
+        }
+
+        public Employee GetByPhone(int phoneNumber)
+        {
+            return shopContext.Employees.FirstOrDefault(e => e.PhoneNumber == phoneNumber);
         }
 
         public IEnumerable<Employee> GetList()
         {
-            return orderContext.Employees.ToList();
+            return shopContext.Employees.ToList();
         }
 
         public void Save()
         {
-            orderContext.SaveChanges();
+            shopContext.SaveChanges();
         }
     }
 }
