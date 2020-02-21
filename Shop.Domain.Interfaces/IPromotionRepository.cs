@@ -6,7 +6,7 @@ namespace Shop.Domain.Interfaces
     public interface IPromotionRepository
     {
         void Add(Promotion product);
-        void Del(int id);
+        void Delete(int id);
         void Edit(Promotion product);
         Promotion Get(int id);
         IEnumerable<Promotion> GetList();

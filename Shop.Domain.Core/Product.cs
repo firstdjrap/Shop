@@ -8,8 +8,11 @@ namespace Shop.Domain.Core
 
         public string Name { get; set; }
         public int Price { get; set; }
+        public string Status { get; set; }
+
         public int RentId { get; set; }
         public Rent Rent { get; set; }
+
         public int SubsidiaryId { get; set; }
         public BranchOffice BranchOffice { get; set; }
         public int StorageId { get; set; }

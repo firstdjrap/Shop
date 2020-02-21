@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class ClientRepository : IClientRepository
     {
-        private readonly OrderContext _orderContext;
+        private readonly ShopContext shopContext;
 
-        public ClientRepository(DbContextOptions<OrderContext> connection)
+        public ClientRepository(DbContextOptions<ShopContext> connection)
         {
-            _orderContext = new OrderContext(connection);
+            shopContext = new ShopContext(connection);
         }
 
         public void Add(Client client)
         {
-            _orderContext.Clients.Add(client);
+            shopContext.Clients.Add(client);
         }
 
-        public void Del(int id)
+        public void Delete(int id)
         {
-            Client client = _orderContext.Clients.Find(id);
+            Client client = shopContext.Clients.Find(id);
             if (client != null)
-                _orderContext.Clients.Remove(client);
+                shopContext.Clients.Remove(client);
         }
 
         public void Edit(Client client)
         {
-            _orderContext.Entry(client).State = EntityState.Modified;
+            shopContext.Entry(client).State = EntityState.Modified;
         }
 
         public Client Get(int id)
         {
-            return _orderContext.Clients.Find(id);
+            return shopContext.Clients.Find(id);
         }
 
         public IEnumerable<Client> GetList()
         {
-            return _orderContext.Clients.ToList();
+            return shopContext.Clients.ToList();
         }
 
         public void Save()
         {
-            _orderContext.SaveChanges();
+            shopContext.SaveChanges();
         }
     }
 }

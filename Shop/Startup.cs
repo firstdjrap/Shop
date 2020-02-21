@@ -23,10 +23,23 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<OrderContext>(options => options.UseSqlServer(connection, sqlServerOptions => sqlServerOptions.MigrationsAssembly("Shop")));
+            services.AddDbContext<ShopContext>(options => options.UseSqlServer(connection, sqlServerOptions => sqlServerOptions.MigrationsAssembly("Shop")));
 
+            services.AddScoped<IBranchOfficeRepository, BranchOfficeRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+            services.AddScoped<IDiscountCardRepository, DiscountCardRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IMarkdownRepository, MarkdownRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IOrder, CacheOrder>();
+            services.AddScoped<IPromotionRepository, PromotionRepository>();
+            services.AddScoped<IPurchaseReturnRepository, PurchaseReturnRepository>();
+            services.AddScoped<IRentRepository, RentRepository>();
+            services.AddScoped<IStorageRepository, StorageRepository>();
+
+            services.AddScoped<IOrder, BankCardOrder>();
+            services.AddScoped<IEmployee, EmployeeAccount>();
+            services.AddScoped<IDelivery, StorageDelivery>();
 
             services.AddControllersWithViews();
         }

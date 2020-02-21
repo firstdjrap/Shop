@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Регистрация";
+}
+<input type="text" id="firstName" size="30" placeholder="Введите имя" />
+<input type="text" id="lastName" size="30" placeholder="Введите фамилию" />
+<input type="text" id="phoneNumber" size="30" placeholder="Введите номер телефона" />
+<input type="password" id="password" size="30" placeholder="Введите пароль" />
+<input type="submit" onclick="Register()" value="Зарегистрировать" />
+<script>
+    function postContext(controller, action, body) {
+        return fetch("/" + controller + "/" + action, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json",
+                "Action": action
+            },
+            body: body
+        });
+    }
+
+    function Register() {
+        postContext("Employee", "SignUp", JSON.stringify({
+            FirstName: firstName.value,
+            LastName: lastName.value,
+            PhoneNumber: parseInt(phoneNumber.value, 10),
+            Password: password.value
+        }))
+            .then(response => response.json())
+            .then(function (commits) {
+                if (commits == "Success") {
+                    alert(firstName.value + ", добро пожаловать!");
+                    window.location.href = "/";
+                }
+                else {
+                    alert(commits);
+                    firstName.value = "";
+                    lastName.value = "";
+                    phoneNumber.value = "";
+                    password.value = "";
+                }
+            });
+    }
+</script>

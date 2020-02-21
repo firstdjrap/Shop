@@ -6,9 +6,11 @@ namespace Shop.Domain.Interfaces
     public interface IEmployeeRepository
     {
         void Add(Employee product);
-        void Del(int id);
+        void Delete(int id);
         void Edit(Employee product);
-        Employee Get(int id);
+        Employee VerifyEmployee(Employee product);
+        Employee GetById(int id);
+        Employee GetByPhone(int phoneNumber);
         IEnumerable<Employee> GetList();
         void Save();
     }
