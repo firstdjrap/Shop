@@ -21,7 +21,7 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignIn([FromBody] EmployeeViewModel employeeViewModel)
+        public ActionResult SignIn([FromBody] EmployeeInputViewModel employeeViewModel)
         {
             Employee employee = new Employee
             {
@@ -29,10 +29,15 @@ namespace Shop.Controllers
                 Password = employeeViewModel.Password,
             };
             var account = this.employee.VerifyEmployee(employee);
-            if (!account)
-                return Json("Ошибка! Введены неверные данные аккаунта!");
+            EmployeeOutputViewModel employeeOutputViewModel;
+            if (account == null)
+            {
+                employeeOutputViewModel = new EmployeeOutputViewModel { Message = "Ошибка! Введены неверные данные аккаунта!" };
+                return Json(employeeOutputViewModel);
+            }
 
-            return Json("Success");
+            employeeOutputViewModel = new EmployeeOutputViewModel { FirstName = account.FirstName, Message = "Success" };
+            return Json(employeeOutputViewModel);
         }
 
         public ActionResult SignUp()
@@ -41,7 +46,7 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp([FromBody] EmployeeViewModel employeeViewModel)
+        public ActionResult SignUp([FromBody] EmployeeInputViewModel employeeViewModel)
         {
             Employee employee = new Employee
             {

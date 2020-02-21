@@ -1,6 +1,6 @@
 ﻿namespace Shop.Models
 {
-    public class EmployeeViewModel
+    public class EmployeeInputViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

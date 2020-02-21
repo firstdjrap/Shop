@@ -5,6 +5,6 @@ namespace Shop.Services.Interfaces
     public interface IEmployee
     {
         bool CreateEmployee(Employee employee);
-        bool VerifyEmployee(Employee employee);
+        Employee VerifyEmployee(Employee employee);
     }
 }

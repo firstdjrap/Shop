@@ -24,12 +24,12 @@
         }))
             .then(response => response.json())
             .then(function (commits) {
-                if (commits == "Success") {
-                    alert("Добро пожаловать!");
+                if (commits.message == "Success") {
+                    alert(commits.firstName + ", добро пожаловать!");
                     window.location.href = "/";
                 }
                 else {
-                    alert(commits);
+                    alert(commits.message);
                     password.value = "";
                 }
             });
