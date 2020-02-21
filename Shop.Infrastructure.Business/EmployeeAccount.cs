@@ -24,13 +24,9 @@ namespace Shop.Infrastructure.Business
             return true;
         }
 
-        public bool VerifyEmployee(Employee employee)
+        public Employee VerifyEmployee(Employee employee)
         {
-            var account = employeeRepository.VerifyEmployee(employee);
-            if (account == null)
-                return false;
-
-            return true;
+            return employeeRepository.VerifyEmployee(employee);
         }
     }
 }
