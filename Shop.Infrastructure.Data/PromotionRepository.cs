@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class PromotionRepository : IPromotionRepository
     {
-        private readonly OrderContext orderContext;
+        private readonly OrderContext _orderContext;
 
         public PromotionRepository(DbContextOptions<OrderContext> connection)
         {
-            orderContext = new OrderContext(connection);
+            _orderContext = new OrderContext(connection);
         }
 
         public void Add(Promotion promotion)
         {
-            orderContext.Promotions.Add(promotion);
+            _orderContext.Promotions.Add(promotion);
         }
 
         public void Del(int id)
         {
-            Promotion promotion = orderContext.Promotions.Find(id);
+            Promotion promotion = _orderContext.Promotions.Find(id);
             if (promotion != null)
-                orderContext.Promotions.Remove(promotion);
+                _orderContext.Promotions.Remove(promotion);
         }
 
         public void Edit(Promotion promotion)
         {
-            orderContext.Entry(promotion).State = EntityState.Modified;
+            _orderContext.Entry(promotion).State = EntityState.Modified;
         }
 
         public Promotion Get(int id)
         {
-            return orderContext.Promotions.Find(id);
+            return _orderContext.Promotions.Find(id);
         }
 
         public IEnumerable<Promotion> GetList()
         {
-            return orderContext.Promotions.ToList();
+            return _orderContext.Promotions.ToList();
         }
 
         public void Save()
         {
-            orderContext.SaveChanges();
+            _orderContext.SaveChanges();
         }
     }
 }
