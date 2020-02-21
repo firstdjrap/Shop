@@ -1,15 +1,13 @@
 ﻿using Shop.Domain.Core;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Shop.Domain.Interfaces
 {
-    public interface IPromotionRepository
+    public interface IPromotionRepository:IRepository<Promotion, int>
     {
-        void Add(Promotion product);
-        void Delete(int id);
-        void Edit(Promotion product);
-        Promotion Get(int id);
-        IEnumerable<Promotion> GetList();
-        void Save();
+        Task<Promotion> AddAsync(Promotion promotion);
+        Task<Promotion> UpdateAsync(Promotion promotion);
+        Task<IEnumerable<Promotion>> GetAsync();
     }
 }

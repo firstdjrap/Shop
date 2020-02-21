@@ -2,49 +2,43 @@
 using Shop.Domain.Core;
 using Shop.Domain.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shop.Infrastructure.Data
 {
     public class PromotionRepository : IPromotionRepository
     {
-        private readonly ShopContext shopContext;
+        private readonly ShopContext _shopContext;
 
         public PromotionRepository(DbContextOptions<ShopContext> connection)
         {
-            shopContext = new ShopContext(connection);
+            _shopContext = new ShopContext(connection);
+        }
+        
+        public async Task<Promotion> GetAsync(int id)
+        {
+            return await _shopContext.Promotions.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Add(Promotion promotion)
+        public async Task<Promotion> AddAsync(Promotion promotion)
         {
-            shopContext.Promotions.Add(promotion);
+            _shopContext.Promotions.Add(promotion);
+            await _shopContext.SaveChangesAsync();
+
+            return promotion;
         }
 
-        public void Delete(int id)
+        public async Task<Promotion> UpdateAsync(Promotion promotion)
         {
-            Promotion promotion = shopContext.Promotions.Find(id);
-            if (promotion != null)
-                shopContext.Promotions.Remove(promotion);
+            _shopContext.Promotions.Update(promotion);
+            await _shopContext.SaveChangesAsync();
+
+            return promotion;
         }
 
-        public void Edit(Promotion promotion)
+        public async Task<IEnumerable<Promotion>> GetAsync()
         {
-            shopContext.Entry(promotion).State = EntityState.Modified;
-        }
-
-        public Promotion Get(int id)
-        {
-            return shopContext.Promotions.Find(id);
-        }
-
-        public IEnumerable<Promotion> GetList()
-        {
-            return shopContext.Promotions.ToList();
-        }
-
-        public void Save()
-        {
-            shopContext.SaveChanges();
+            return await _shopContext.Promotions.ToListAsync();
         }
     }
 }

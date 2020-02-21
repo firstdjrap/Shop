@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 
-namespace Shop.Domain.Core
+namespace Shop.Models
 {
-    public class Promotion:IEntity<int>
+    public class PromotionViewModel
     {
         public int Id { get; set; }
-        public ICollection<Product> Products { get; set; }
         public int Percent { get; set; }
         public int LifeTime { get; set; }
-
         public DateTime CreatedAt { get; set; }
     }
 }
