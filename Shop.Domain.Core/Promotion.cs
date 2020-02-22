@@ -7,9 +7,10 @@ namespace Shop.Domain.Core
     {
         public int Id { get; set; }
 
-        public ICollection<Product> Products { get; set; }
         public int Percent { get; set; }
         public int LifeTime { get; set; }
+
+        public ICollection<Product> Products { get; set; }
 
         public DateTime CreatedAt { get; set; }
     }

@@ -12,10 +12,10 @@ namespace Shop.Domain.Core
         public string Password { get; set; }
         public string Position { get; set; }
 
+        public int? BranchOfficeId { get; set; }
+        public BranchOffice BranchOffice { get; set; }
         public int? StorageId { get; set; }
         public Storage Storage { get; set; }
-        public int? SubsidiaryId { get; set; }
-        public BranchOffice BranchOffice { get; set; }
 
         public DateTime CreatedAt { get; set; }
     }
