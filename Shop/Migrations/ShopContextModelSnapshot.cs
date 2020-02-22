@@ -32,21 +32,16 @@ namespace Shop.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("ResponsibleId")
+                    b.Property<int?>("ResponsibleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("BranchOffices");
                 });
@@ -81,9 +76,6 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DiscountCardId")
-                        .IsUnique();
-
                     b.ToTable("Clients");
                 });
 
@@ -94,7 +86,7 @@ namespace Shop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BranchOfficeId")
+                    b.Property<int>("BranchOfficeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -104,9 +96,6 @@ namespace Shop.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("StorageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubsidiaryId")
                         .HasColumnType("int");
 
                     b.Property<string>("WhereTo")
@@ -128,6 +117,9 @@ namespace Shop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -142,6 +134,9 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
                     b.ToTable("DiscountCards");
                 });
 
@@ -151,6 +146,12 @@ namespace Shop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BranchOfficeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BranchOfficeId1")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -173,14 +174,18 @@ namespace Shop.Migrations
                     b.Property<int?>("StorageId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubsidiaryId")
+                    b.Property<int?>("StorageId1")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StorageId");
+                    b.HasIndex("BranchOfficeId")
+                        .IsUnique()
+                        .HasFilter("[BranchOfficeId] IS NOT NULL");
 
-                    b.HasIndex("SubsidiaryId");
+                    b.HasIndex("BranchOfficeId1");
+
+                    b.HasIndex("StorageId1");
 
                     b.ToTable("Employees");
                 });
@@ -203,6 +208,48 @@ namespace Shop.Migrations
                     b.ToTable("Markdowns");
                 });
 
+            modelBuilder.Entity("Shop.Domain.Core.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("Shop.Domain.Core.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
+                });
+
             modelBuilder.Entity("Shop.Domain.Core.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -213,16 +260,16 @@ namespace Shop.Migrations
                     b.Property<int?>("BranchOfficeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DeliveryId")
+                    b.Property<int>("DeliveryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MarkdownId")
+                    b.Property<int>("MarkdownId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -231,10 +278,10 @@ namespace Shop.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PromotionId")
+                    b.Property<int>("PromotionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PurchaseReturnId")
+                    b.Property<int>("PurchaseReturnId")
                         .HasColumnType("int");
 
                     b.Property<int>("RentId")
@@ -243,10 +290,7 @@ namespace Shop.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StorageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubsidiaryId")
+                    b.Property<int?>("StorageId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -262,9 +306,6 @@ namespace Shop.Migrations
                     b.HasIndex("PromotionId");
 
                     b.HasIndex("PurchaseReturnId");
-
-                    b.HasIndex("RentId")
-                        .IsUnique();
 
                     b.HasIndex("StorageId");
 
@@ -317,7 +358,7 @@ namespace Shop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BranchOfficeId")
+                    b.Property<int>("BranchOfficeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -335,6 +376,9 @@ namespace Shop.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BranchOfficeId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.HasIndex("StorageId");
 
@@ -360,35 +404,25 @@ namespace Shop.Migrations
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("ResponsibleId")
+                    b.Property<int?>("ResponsibleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ResponsibleId")
+                        .IsUnique()
+                        .HasFilter("[ResponsibleId] IS NOT NULL");
+
                     b.ToTable("Storages");
-                });
-
-            modelBuilder.Entity("Shop.Domain.Core.BranchOffice", b =>
-                {
-                    b.HasOne("Shop.Domain.Core.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId");
-                });
-
-            modelBuilder.Entity("Shop.Domain.Core.Client", b =>
-                {
-                    b.HasOne("Shop.Domain.Core.DiscountCard", "DiscountCard")
-                        .WithOne("Client")
-                        .HasForeignKey("Shop.Domain.Core.Client", "DiscountCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shop.Domain.Core.Delivery", b =>
                 {
                     b.HasOne("Shop.Domain.Core.BranchOffice", "BranchOffice")
                         .WithMany()
-                        .HasForeignKey("BranchOfficeId");
+                        .HasForeignKey("BranchOfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Shop.Domain.Core.Storage", "Storage")
                         .WithMany()
@@ -397,15 +431,43 @@ namespace Shop.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Shop.Domain.Core.DiscountCard", b =>
+                {
+                    b.HasOne("Shop.Domain.Core.Client", "Client")
+                        .WithOne("DiscountCard")
+                        .HasForeignKey("Shop.Domain.Core.DiscountCard", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Shop.Domain.Core.Employee", b =>
                 {
-                    b.HasOne("Shop.Domain.Core.Storage", "Storage")
-                        .WithMany("Employees")
-                        .HasForeignKey("StorageId");
-
                     b.HasOne("Shop.Domain.Core.BranchOffice", "BranchOffice")
+                        .WithOne("Responsible")
+                        .HasForeignKey("Shop.Domain.Core.Employee", "BranchOfficeId");
+
+                    b.HasOne("Shop.Domain.Core.BranchOffice", null)
                         .WithMany("Employees")
-                        .HasForeignKey("SubsidiaryId");
+                        .HasForeignKey("BranchOfficeId1");
+
+                    b.HasOne("Shop.Domain.Core.Storage", null)
+                        .WithMany("Employees")
+                        .HasForeignKey("StorageId1");
+                });
+
+            modelBuilder.Entity("Shop.Domain.Core.OrderProduct", b =>
+                {
+                    b.HasOne("Shop.Domain.Core.Order", "Order")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shop.Domain.Core.Product", "Product")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shop.Domain.Core.Product", b =>
@@ -414,48 +476,65 @@ namespace Shop.Migrations
                         .WithMany("Products")
                         .HasForeignKey("BranchOfficeId");
 
-                    b.HasOne("Shop.Domain.Core.Client", null)
+                    b.HasOne("Shop.Domain.Core.Client", "Client")
                         .WithMany("Products")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Shop.Domain.Core.Delivery", null)
+                    b.HasOne("Shop.Domain.Core.Delivery", "Delivery")
                         .WithMany("Products")
-                        .HasForeignKey("DeliveryId");
+                        .HasForeignKey("DeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Shop.Domain.Core.Markdown", null)
+                    b.HasOne("Shop.Domain.Core.Markdown", "Markdown")
                         .WithMany("Products")
-                        .HasForeignKey("MarkdownId");
+                        .HasForeignKey("MarkdownId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Shop.Domain.Core.Promotion", null)
+                    b.HasOne("Shop.Domain.Core.Promotion", "Promotion")
                         .WithMany("Products")
-                        .HasForeignKey("PromotionId");
+                        .HasForeignKey("PromotionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Shop.Domain.Core.PurchaseReturn", null)
+                    b.HasOne("Shop.Domain.Core.PurchaseReturn", "PurchaseReturn")
                         .WithMany("Products")
-                        .HasForeignKey("PurchaseReturnId");
-
-                    b.HasOne("Shop.Domain.Core.Rent", "Rent")
-                        .WithOne("Product")
-                        .HasForeignKey("Shop.Domain.Core.Product", "RentId")
+                        .HasForeignKey("PurchaseReturnId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shop.Domain.Core.Storage", "Storage")
                         .WithMany("Products")
-                        .HasForeignKey("StorageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StorageId");
                 });
 
             modelBuilder.Entity("Shop.Domain.Core.Rent", b =>
                 {
-                    b.HasOne("Shop.Domain.Core.BranchOffice", null)
+                    b.HasOne("Shop.Domain.Core.BranchOffice", "BranchOffice")
                         .WithMany("Rents")
-                        .HasForeignKey("BranchOfficeId");
+                        .HasForeignKey("BranchOfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Shop.Domain.Core.Storage", null)
+                    b.HasOne("Shop.Domain.Core.Product", "Product")
+                        .WithOne("Rent")
+                        .HasForeignKey("Shop.Domain.Core.Rent", "ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Shop.Domain.Core.Storage", "Storage")
                         .WithMany("Rents")
                         .HasForeignKey("StorageId");
+                });
+
+            modelBuilder.Entity("Shop.Domain.Core.Storage", b =>
+                {
+                    b.HasOne("Shop.Domain.Core.Employee", "Responsible")
+                        .WithOne("Storage")
+                        .HasForeignKey("Shop.Domain.Core.Storage", "ResponsibleId");
                 });
 #pragma warning restore 612, 618
         }

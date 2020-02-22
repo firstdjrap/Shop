@@ -10,6 +10,7 @@ namespace Shop.Domain.Core
         public int Percent { get; set; }
         public int LifeTime { get; set; }
 
+        public int ClientId { get; set; }
         public Client Client { get; set; }
 
         public DateTime CreatedAt { get; set; }

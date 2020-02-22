@@ -13,10 +13,10 @@ namespace Shop.Domain.Core
         public string Password { get; set; }
         public string Address { get; set; }
 
-        public ICollection<Product> Products { get; set; }
-
         public int DiscountCardId { get; set; }
         public DiscountCard DiscountCard { get; set; }
+
+        public ICollection<Product> Products { get; set; }
 
         public DateTime CreatedAt { get; set; }
     }
