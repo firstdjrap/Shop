@@ -8,43 +8,53 @@ namespace Shop.Infrastructure.Data
 {
     public class ClientRepository : IClientRepository
     {
-        private readonly ShopContext shopContext;
+        private readonly ShopContext _shopContext;
 
         public ClientRepository(DbContextOptions<ShopContext> connection)
         {
-            shopContext = new ShopContext(connection);
+            _shopContext = new ShopContext(connection);
         }
 
         public void Add(Client client)
         {
-            shopContext.Clients.Add(client);
+            _shopContext.Clients.Add(client);
         }
 
         public void Delete(int id)
         {
-            Client client = shopContext.Clients.Find(id);
+            Client client = _shopContext.Clients.Find(id);
             if (client != null)
-                shopContext.Clients.Remove(client);
+                _shopContext.Clients.Remove(client);
         }
 
         public void Edit(Client client)
         {
-            shopContext.Entry(client).State = EntityState.Modified;
+            _shopContext.Entry(client).State = EntityState.Modified;
         }
 
-        public Client Get(int id)
+        public Client VerifyEmployee(Client client)
         {
-            return shopContext.Clients.Find(id);
+            return _shopContext.Clients.FirstOrDefault(e => e.PhoneNumber == client.PhoneNumber && e.Password == client.Password);
+        }
+
+        public Client GetById(int id)
+        {
+            return _shopContext.Clients.Find(id);
+        }
+
+        public Client GetByPhone(int phoneNumber)
+        {
+            return _shopContext.Clients.FirstOrDefault(e => e.PhoneNumber == phoneNumber);
         }
 
         public IEnumerable<Client> GetList()
         {
-            return shopContext.Clients.ToList();
+            return _shopContext.Clients.ToList();
         }
 
         public void Save()
         {
-            shopContext.SaveChanges();
+            _shopContext.SaveChanges();
         }
     }
 }

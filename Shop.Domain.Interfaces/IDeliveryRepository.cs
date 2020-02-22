@@ -5,10 +5,10 @@ namespace Shop.Domain.Interfaces
 {
     public interface IDeliveryRepository
     {
-        void Add(Delivery product);
+        void Add(Delivery delivery);
         void Delete(int id);
-        void Edit(Delivery product);
-        Delivery Get(int id);
+        void Edit(Delivery delivery);
+        Delivery GetById(int id);
         IEnumerable<Delivery> GetList();
         void Save();
     }

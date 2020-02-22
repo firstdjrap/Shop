@@ -10,9 +10,10 @@ namespace Shop.Domain.Core
         public string WhereTo { get; set; }
         public DateTime Period { get; set; }
 
-        public int BranchOfficeId { get; set; }
+        public int? BranchOfficeId { get; set; }
         public BranchOffice BranchOffice { get; set; }
-        public int StorageId { get; set; }
+        public Order Order { get; set; }
+        public int? StorageId { get; set; }
         public Storage Storage { get; set; }
 
         public ICollection<Product> Products { get; set; }

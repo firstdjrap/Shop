@@ -8,11 +8,11 @@ namespace Shop.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployee employee;
+        private readonly IEmployee _employee;
 
         public EmployeeController(IEmployee employee)
         {
-            this.employee = employee;
+            _employee = employee;
         }
 
         public ActionResult SignIn()
@@ -21,23 +21,23 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignIn([FromBody] EmployeeInputViewModel employeeViewModel)
+        public ActionResult SignIn([FromBody] AccountInputViewModel accountViewModel)
         {
             Employee employee = new Employee
             {
-                PhoneNumber = employeeViewModel.PhoneNumber,
-                Password = employeeViewModel.Password,
+                PhoneNumber = accountViewModel.PhoneNumber,
+                Password = accountViewModel.Password,
             };
-            var account = this.employee.VerifyEmployee(employee);
-            EmployeeOutputViewModel employeeOutputViewModel;
+            var account = _employee.VerifyEmployee(employee);
+            AccountOutputViewModel accountOutputViewModel;
             if (account == null)
             {
-                employeeOutputViewModel = new EmployeeOutputViewModel { Message = "Ошибка! Введены неверные данные аккаунта!" };
-                return Json(employeeOutputViewModel);
+                accountOutputViewModel = new AccountOutputViewModel { Message = "Ошибка! Введены неверные данные аккаунта!" };
+                return Json(accountOutputViewModel);
             }
 
-            employeeOutputViewModel = new EmployeeOutputViewModel { FirstName = account.FirstName, Message = "Success" };
-            return Json(employeeOutputViewModel);
+            accountOutputViewModel = new AccountOutputViewModel { FirstName = account.FirstName, Message = "Success" };
+            return Json(accountOutputViewModel);
         }
 
         public ActionResult SignUp()
@@ -46,17 +46,17 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp([FromBody] EmployeeInputViewModel employeeViewModel)
+        public ActionResult SignUp([FromBody] AccountInputViewModel accountViewModel)
         {
             Employee employee = new Employee
             {
-                FirstName = employeeViewModel.FirstName,
-                LastName = employeeViewModel.LastName,
-                PhoneNumber = employeeViewModel.PhoneNumber,
-                Password = employeeViewModel.Password,
+                FirstName = accountViewModel.FirstName,
+                LastName = accountViewModel.LastName,
+                PhoneNumber = accountViewModel.PhoneNumber,
+                Password = accountViewModel.Password,
                 CreatedAt = DateTime.Now
             };
-            var account = this.employee.CreateEmployee(employee);
+            var account = _employee.CreateEmployee(employee);
             if (!account)
                 return Json("Ошибка! Пользователь с такими данными уже существует!");
 

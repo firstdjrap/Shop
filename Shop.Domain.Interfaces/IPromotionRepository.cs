@@ -5,10 +5,10 @@ namespace Shop.Domain.Interfaces
 {
     public interface IPromotionRepository
     {
-        void Add(Promotion product);
+        void Add(Promotion promotion);
         void Delete(int id);
-        void Edit(Promotion product);
-        Promotion Get(int id);
+        void Edit(Promotion promotion);
+        Promotion GetById(int id);
         IEnumerable<Promotion> GetList();
         void Save();
     }

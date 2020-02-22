@@ -13,18 +13,10 @@ namespace Shop.Domain.Core
 
         public int? BranchOfficeId { get; set; }
         public BranchOffice BranchOffice { get; set; }
-        public int ClientId { get; set; }
-        public Client Client { get; set; }
-        public int DeliveryId { get; set; }
-        public Delivery Delivery { get; set; }
-        public int MarkdownId { get; set; }
+        public int? MarkdownId { get; set; }
         public Markdown Markdown { get; set; }
-        public int PromotionId { get; set; }
+        public int? PromotionId { get; set; }
         public Promotion Promotion { get; set; }
-        public int PurchaseReturnId { get; set; }
-        public PurchaseReturn PurchaseReturn { get; set; }
-        public int RentId { get; set; }
-        public Rent Rent { get; set; }
         public int? StorageId { get; set; }
         public Storage Storage { get; set; }
 

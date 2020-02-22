@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class PurchaseReturnRepository : IPurchaseReturnRepository
     {
-        private readonly ShopContext shopContext;
+        private readonly ShopContext _shopContext;
 
         public PurchaseReturnRepository(DbContextOptions<ShopContext> connection)
         {
-            shopContext = new ShopContext(connection);
+            _shopContext = new ShopContext(connection);
         }
 
         public void Add(PurchaseReturn purchaseReturn)
         {
-            shopContext.PurchaseReturns.Add(purchaseReturn);
+            _shopContext.PurchaseReturns.Add(purchaseReturn);
         }
 
         public void Delete(int id)
         {
-            PurchaseReturn purchaseReturn = shopContext.PurchaseReturns.Find(id);
+            PurchaseReturn purchaseReturn = _shopContext.PurchaseReturns.Find(id);
             if (purchaseReturn != null)
-                shopContext.PurchaseReturns.Remove(purchaseReturn);
+                _shopContext.PurchaseReturns.Remove(purchaseReturn);
         }
 
         public void Edit(PurchaseReturn purchaseReturn)
         {
-            shopContext.Entry(purchaseReturn).State = EntityState.Modified;
+            _shopContext.Entry(purchaseReturn).State = EntityState.Modified;
         }
 
-        public PurchaseReturn Get(int id)
+        public PurchaseReturn GetById(int id)
         {
-            return shopContext.PurchaseReturns.Find(id);
+            return _shopContext.PurchaseReturns.Find(id);
         }
 
         public IEnumerable<PurchaseReturn> GetList()
         {
-            return shopContext.PurchaseReturns.ToList();
+            return _shopContext.PurchaseReturns.ToList();
         }
 
         public void Save()
         {
-            shopContext.SaveChanges();
+            _shopContext.SaveChanges();
         }
     }
 }

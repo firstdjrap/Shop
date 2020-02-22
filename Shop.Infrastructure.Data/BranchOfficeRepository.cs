@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class BranchOfficeRepository : IBranchOfficeRepository
     {
-        private readonly ShopContext shopContext;
+        private readonly ShopContext _shopContext;
 
         public BranchOfficeRepository(DbContextOptions<ShopContext> connection)
         {
-            shopContext = new ShopContext(connection);
+            _shopContext = new ShopContext(connection);
         }
 
         public void Add(BranchOffice branchOffice)
         {
-            shopContext.BranchOffices.Add(branchOffice);
+            _shopContext.BranchOffices.Add(branchOffice);
         }
 
         public void Delete(int id)
         {
-            BranchOffice branchOffice = shopContext.BranchOffices.Find(id);
+            BranchOffice branchOffice = _shopContext.BranchOffices.Find(id);
             if (branchOffice != null)
-                shopContext.BranchOffices.Remove(branchOffice);
+                _shopContext.BranchOffices.Remove(branchOffice);
         }
 
         public void Edit(BranchOffice branchOffice)
         {
-            shopContext.Entry(branchOffice).State = EntityState.Modified;
+            _shopContext.Entry(branchOffice).State = EntityState.Modified;
         }
 
-        public BranchOffice Get(int id)
+        public BranchOffice GetById(int id)
         {
-            return shopContext.BranchOffices.Find(id);
+            return _shopContext.BranchOffices.Find(id);
         }
 
         public IEnumerable<BranchOffice> GetList()
         {
-            return shopContext.BranchOffices.ToList();
+            return _shopContext.BranchOffices.ToList();
         }
 
         public void Save()
         {
-            shopContext.SaveChanges();
+            _shopContext.SaveChanges();
         }
     }
 }

@@ -5,10 +5,10 @@ namespace Shop.Domain.Interfaces
 {
     public interface IDiscountCardRepository
     {
-        void Add(DiscountCard product);
+        void Add(DiscountCard discountCard);
         void Delete(int id);
-        void Edit(DiscountCard product);
-        DiscountCard Get(int id);
+        void Edit(DiscountCard discountCard);
+        DiscountCard GetById(int id);
         IEnumerable<DiscountCard> GetList();
         void Save();
     }

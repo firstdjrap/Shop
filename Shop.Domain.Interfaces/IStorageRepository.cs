@@ -5,10 +5,10 @@ namespace Shop.Domain.Interfaces
 {
     public interface IStorageRepository
     {
-        void Add(Storage product);
+        void Add(Storage storage);
         void Delete(int id);
-        void Edit(Storage product);
-        Storage Get(int id);
+        void Edit(Storage storage);
+        Storage GetById(int id);
         IEnumerable<Storage> GetList();
         void Save();
     }

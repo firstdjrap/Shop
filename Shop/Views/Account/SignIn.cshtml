@@ -1,3 +1,36 @@
 ﻿@{
     ViewData["Title"] = "Вход";
 }
+<input type="text" id="phoneNumber" placeholder="Номер телефона" />
+<input type="password" id="password" placeholder="Пароль" />
+<input type="submit" onclick="Login()" value="Войти" />
+<script>
+    function postContext(controller, action, body) {
+        return fetch("/" + controller + "/" + action, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json",
+                "Action": action
+            },
+            body: body
+        });
+    }
+
+    function Login() {
+        postContext("Account", "SignIn", JSON.stringify({
+            PhoneNumber: parseInt(phoneNumber.value, 10),
+            Password: password.value
+        }))
+            .then(response => response.json())
+            .then(function (commits) {
+                if (commits.message == "Success") {
+                    alert(commits.firstName + ", добро пожаловать!");
+                    window.location.href = "/";
+                }
+                else {
+                    alert(commits.message);
+                    password.value = "";
+                }
+            });
+    }
+</script>

@@ -11,9 +11,6 @@ namespace Shop.Domain.Core
         public string Address { get; set; }
         public int PhoneNumber { get; set; }
 
-        public int? ResponsibleId { get; set; }
-        public Employee Responsible { get; set; }
-
         public ICollection<Employee> Employees { get; set; }
         public ICollection<Product> Products { get; set; }
         public ICollection<Rent> Rents { get; set; }

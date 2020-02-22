@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ShopContext shopContext;
+        private readonly ShopContext _shopContext;
 
         public ProductRepository(DbContextOptions<ShopContext> connection)
         {
-            shopContext = new ShopContext(connection);
+            _shopContext = new ShopContext(connection);
         }
 
         public void Add(Product product)
         {
-            shopContext.Products.Add(product);
+            _shopContext.Products.Add(product);
         }
 
         public void Delete(int id)
         {
-            Product product = shopContext.Products.Find(id);
+            Product product = _shopContext.Products.Find(id);
             if (product != null)
-                shopContext.Products.Remove(product);
+                _shopContext.Products.Remove(product);
         }
 
         public void Edit(Product product)
         {
-            shopContext.Entry(product).State = EntityState.Modified;
+            _shopContext.Entry(product).State = EntityState.Modified;
         }
 
-        public Product Get(int id)
+        public Product GetById(int id)
         {
-            return shopContext.Products.Find(id);
+            return _shopContext.Products.Find(id);
         }
 
         public IEnumerable<Product> GetList()
         {
-            return shopContext.Products.ToList();
+            return _shopContext.Products.ToList();
         }
 
         public void Save()
         {
-            shopContext.SaveChanges();
+            _shopContext.SaveChanges();
         }
     }
 }

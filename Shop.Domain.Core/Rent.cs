@@ -8,10 +8,9 @@ namespace Shop.Domain.Core
 
         public int RentalPeriod { get; set; }
 
-        public int BranchOfficeId { get; set; }
+        public int? BranchOfficeId { get; set; }
         public BranchOffice BranchOffice { get; set; }
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public Order Order { get; set; }
         public int? StorageId { get; set; }
         public Storage Storage { get; set; }
 

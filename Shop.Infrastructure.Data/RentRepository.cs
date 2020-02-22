@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class RentRepository : IRentRepository
     {
-        private readonly ShopContext shopContext;
+        private readonly ShopContext _shopContext;
 
         public RentRepository(DbContextOptions<ShopContext> connection)
         {
-            shopContext = new ShopContext(connection);
+            _shopContext = new ShopContext(connection);
         }
 
         public void Add(Rent rent)
         {
-            shopContext.Rents.Add(rent);
+            _shopContext.Rents.Add(rent);
         }
 
         public void Delete(int id)
         {
-            Rent rent = shopContext.Rents.Find(id);
+            Rent rent = _shopContext.Rents.Find(id);
             if (rent != null)
-                shopContext.Rents.Remove(rent);
+                _shopContext.Rents.Remove(rent);
         }
 
         public void Edit(Rent rent)
         {
-            shopContext.Entry(rent).State = EntityState.Modified;
+            _shopContext.Entry(rent).State = EntityState.Modified;
         }
 
-        public Rent Get(int id)
+        public Rent GetById(int id)
         {
-            return shopContext.Rents.Find(id);
+            return _shopContext.Rents.Find(id);
         }
 
         public IEnumerable<Rent> GetList()
         {
-            return shopContext.Rents.ToList();
+            return _shopContext.Rents.ToList();
         }
 
         public void Save()
         {
-            shopContext.SaveChanges();
+            _shopContext.SaveChanges();
         }
     }
 }

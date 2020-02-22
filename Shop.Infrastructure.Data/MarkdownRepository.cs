@@ -8,43 +8,43 @@ namespace Shop.Infrastructure.Data
 {
     public class MarkdownRepository : IMarkdownRepository
     {
-        private readonly ShopContext shopContext;
+        private readonly ShopContext _shopContext;
 
         public MarkdownRepository(DbContextOptions<ShopContext> connection)
         {
-            shopContext = new ShopContext(connection);
+            _shopContext = new ShopContext(connection);
         }
 
         public void Add(Markdown markdown)
         {
-            shopContext.Markdowns.Add(markdown);
+            _shopContext.Markdowns.Add(markdown);
         }
 
         public void Delete(int id)
         {
-            Markdown markdown = shopContext.Markdowns.Find(id);
+            Markdown markdown = _shopContext.Markdowns.Find(id);
             if (markdown != null)
-                shopContext.Markdowns.Remove(markdown);
+                _shopContext.Markdowns.Remove(markdown);
         }
 
         public void Edit(Markdown markdown)
         {
-            shopContext.Entry(markdown).State = EntityState.Modified;
+            _shopContext.Entry(markdown).State = EntityState.Modified;
         }
 
-        public Markdown Get(int id)
+        public Markdown GetById(int id)
         {
-            return shopContext.Markdowns.Find(id);
+            return _shopContext.Markdowns.Find(id);
         }
 
         public IEnumerable<Markdown> GetList()
         {
-            return shopContext.Markdowns.ToList();
+            return _shopContext.Markdowns.ToList();
         }
 
         public void Save()
         {
-            shopContext.SaveChanges();
+            _shopContext.SaveChanges();
         }
     }
 }

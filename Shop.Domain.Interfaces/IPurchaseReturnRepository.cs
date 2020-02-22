@@ -5,10 +5,10 @@ namespace Shop.Domain.Interfaces
 {
     public interface IPurchaseReturnRepository
     {
-        void Add(PurchaseReturn product);
+        void Add(PurchaseReturn purchaseReturn);
         void Delete(int id);
-        void Edit(PurchaseReturn product);
-        PurchaseReturn Get(int id);
+        void Edit(PurchaseReturn purchaseReturn);
+        PurchaseReturn GetById(int id);
         IEnumerable<PurchaseReturn> GetList();
         void Save();
     }
