@@ -37,6 +37,7 @@ namespace Shop
             services.AddScoped<IRentRepository, RentRepository>();
             services.AddScoped<IStorageRepository, StorageRepository>();
 
+            services.AddScoped<IBranchOffice, BranchOfficeShop>();
             services.AddScoped<IClient, ClientAccount>();
             services.AddScoped<IDelivery, StorageDelivery>();
             services.AddScoped<IEmployee, EmployeeAccount>();

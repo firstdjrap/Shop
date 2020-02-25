@@ -1,0 +1,72 @@
+﻿@model Shop.Domain.Core.BranchOffice
+
+@{
+    ViewData["Title"] = "Редактирование офиса";
+}
+
+<h2>Редактирование</h2>
+
+<div class="form-horizontal">
+    <h4>Офис</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="nameBranchOffice" placeholder="Название" value="@Model.Name" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="address" placeholder="Адрес" value="@Model.Address" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="phoneNumber" placeholder="Номер телефона" value="@Model.PhoneNumber" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-default" type="submit" onclick="Edit()" value="Сохранить" />
+            <input class="btn btn-default" type="submit" onclick="Cancel()" value="Отменить" />
+        </div>
+    </div>
+</div>
+
+<script>
+    function postContext(controller, action, body) {
+        return fetch("/" + controller + "/" + action, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body
+        });
+    }
+
+    function Edit() {
+        postContext("BranchOffice", "Edit", JSON.stringify({
+            Id: @Model.Id,
+            Name: nameBranchOffice.value,
+            Address: address.value,
+            PhoneNumber: parseInt(phoneNumber.value, 10)
+        }))
+            .then(response => response.json())
+            .then(function (commit) {
+                if (commit == "Success") {
+                    alert("Изменено!");
+                    window.location.href = "/branchoffice";
+                }
+                else {
+                    alert(commit);
+                }
+            });
+    }
+
+    function Cancel() {
+        window.location.href = "/branchoffice";
+    }
+</script>

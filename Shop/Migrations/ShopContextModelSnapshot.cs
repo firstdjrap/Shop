@@ -35,6 +35,10 @@ namespace Shop.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
@@ -399,6 +403,10 @@ namespace Shop.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");

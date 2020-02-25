@@ -1,10 +1,36 @@
 ﻿@{
     ViewData["Title"] = "Вход";
 }
-<input type="text" id="phoneNumber" placeholder="Номер телефона" />
-<input type="password" id="password" placeholder="Пароль" />
-<input type="submit" onclick="Login()" value="Войти" />
-<a class="nav-link text-dark" asp-area="" asp-controller="employee" asp-action="signup">Регистрация</a>
+
+<h2>Вход</h2>
+
+<div class="form-horizontal">
+    <h4>Сотрудник</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="phoneNumber" placeholder="Номер телефона" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="password" id="password" placeholder="Пароль" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-default" type="submit" onclick="Login()" value="Войти" />
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="employee" asp-action="signup">Регистрация</a>
+</div>
+
 <script>
     function postContext(controller, action, body) {
         return fetch("/" + controller + "/" + action, {

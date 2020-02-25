@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Офис";
+}
+
+<h2>Список</h2>
+
+<div>
+    <h4>Офис</h4>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Название
+            </th>
+            <th>
+                Адрес
+            </th>
+            <th>
+                Номер телефона
+            </th>
+            <th />
+        </tr>
+    </thead>
+
+    <tbody id="list" />
+</table>
+
+<div>
+    <a asp-action="Create">Добавить</a>
+</div>
+
+<script>
+    function getContext(controller, action) {
+            return fetch("/" + controller + "/" + action);
+        }
+
+    function postContext(controller, action, body) {
+        return fetch("/" + controller + "/" + action, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body
+        });
+    }
+
+    function ready(callback) {
+        if (document.readyState != "loading") callback();
+        else document.addEventListener("DOMContentLoaded", callback);
+    }
+    ready(getBranchOffices);
+
+    function getBranchOffices() {
+        getContext("BranchOffice", "GetBranchOffices")
+            .then(response => response.json())
+            .then(function (commits) {
+                if (commits != 0 && commits != null) {
+                    commits.forEach(element => unpackingBranchOffices(element));
+                }
+                else {
+                    unpackingBranchOffices();
+               }
+            });
+    }
+
+    function unpackingBranchOffices(element) {
+        if (element == undefined) {
+            element = { id: "Null", name: "Null", address: "Null", phoneNumber: "Null" };
+        }
+        var tr = document.createElement("tr");
+
+        var th = document.createElement("th");
+        th.textContent = element.id;
+        tr.appendChild(th);
+
+        th = document.createElement("th");
+        th.textContent = element.name;
+        tr.appendChild(th);
+
+        th = document.createElement("th");
+        th.textContent = element.address;
+        tr.appendChild(th);
+
+        th = document.createElement("th");
+        th.textContent = element.phoneNumber;
+        tr.appendChild(th);
+        
+        th = document.createElement("th");
+        
+        if (element.id != "Null") {
+            var a = document.createElement("a");
+            a.href = "#";
+            a.setAttribute("onclick", "Edit(" + element.id + ")");
+            a.textContent = "Изменить";
+            th.appendChild(a);
+
+            th.appendChild(document.createTextNode(" | "));
+
+            a = document.createElement("a");
+            a.href = "#";
+            a.setAttribute("onclick", "Delete(" + element.id + ", '" + element.name + "')");
+            a.textContent = "Удалить";
+            th.appendChild(a);
+        }
+        tr.appendChild(th);
+
+        list.appendChild(tr);
+    }
+
+    function Edit(itemId) {
+        window.location.href = "/branchoffice/edit?id=" + itemId;
+    }
+
+    function Delete(itemId, name) {
+        var isDelete = confirm("Удалить магазин " + name + "?");
+        if (isDelete) {
+            postContext("BranchOffice", "Delete", JSON.stringify({
+                Id: itemId
+            }))
+                .then(response => response.json())
+                .then(function (commit) {
+                    if (commit == "Success") {
+                        alert("Удалено!");
+                        window.location.href = "/branchoffice";
+                    }
+                    else {
+                        alert(commit);
+                    }
+                });
+        }
+    }
+</script>

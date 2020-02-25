@@ -26,7 +26,7 @@ namespace Shop.Controllers
             Client client = new Client
             {
                 PhoneNumber = accountViewModel.PhoneNumber,
-                Password = accountViewModel.Password,
+                Password = accountViewModel.Password
             };
             var account = _client.VerifyEmployee(client);
             AccountOutputViewModel accountOutputViewModel;

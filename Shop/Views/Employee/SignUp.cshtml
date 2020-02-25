@@ -1,18 +1,50 @@
 ﻿@{
     ViewData["Title"] = "Регистрация";
 }
-<input type="text" id="firstName" placeholder="Имя" />
-<input type="text" id="lastName" placeholder="Фамилия" />
-<input type="text" id="phoneNumber" placeholder="Номер телефона" />
-<input type="password" id="password" placeholder="Пароль" />
-<input type="submit" onclick="Register()" value="Зарегистрировать" />
+
+<h2>Регистрация</h2>
+
+<div class="form-horizontal">
+    <h4>Сотрудник</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="firstName" placeholder="Имя" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="lastName" placeholder="Фамилия" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="phoneNumber" placeholder="Номер телефона" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="password" id="password" placeholder="Пароль" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-default" type="submit" onclick="Register()" value="Зарегистрировать" />
+        </div>
+    </div>
+</div>
+
 <script>
     function postContext(controller, action, body) {
         return fetch("/" + controller + "/" + action, {
             method: "Post",
             headers: {
-                "Content-Type": "application/json",
-                "Action": action
+                "Content-Type": "application/json"
             },
             body: body
         });

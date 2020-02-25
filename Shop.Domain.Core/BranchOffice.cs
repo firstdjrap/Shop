@@ -9,6 +9,7 @@ namespace Shop.Domain.Core
 
         public string Name { get; set; }
         public string Address { get; set; }
+        public char PhoneCode { get; set; }
         public int PhoneNumber { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
