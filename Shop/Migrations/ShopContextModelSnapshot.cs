@@ -285,9 +285,6 @@ namespace Shop.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DeliveryId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MarkdownId")
                         .HasColumnType("int");
 
@@ -309,8 +306,6 @@ namespace Shop.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BranchOfficeId");
-
-                    b.HasIndex("DeliveryId");
 
                     b.HasIndex("MarkdownId");
 
@@ -488,10 +483,6 @@ namespace Shop.Migrations
                     b.HasOne("Shop.Domain.Core.BranchOffice", "BranchOffice")
                         .WithMany("Products")
                         .HasForeignKey("BranchOfficeId");
-
-                    b.HasOne("Shop.Domain.Core.Delivery", null)
-                        .WithMany("Products")
-                        .HasForeignKey("DeliveryId");
 
                     b.HasOne("Shop.Domain.Core.Markdown", "Markdown")
                         .WithMany("Products")

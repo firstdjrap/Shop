@@ -1,4 +1,5 @@
 ﻿using Shop.Domain.Core;
+using System.Collections.Generic;
 
 namespace Shop.Services.Interfaces
 {
@@ -6,5 +7,6 @@ namespace Shop.Services.Interfaces
     {
         bool CreateEmployee(Employee employee);
         Employee VerifyEmployee(Employee employee);
+        IEnumerable<Employee> GetList();
     }
 }

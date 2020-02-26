@@ -5,13 +5,13 @@ using System;
 
 namespace Shop.Controllers
 {
-    public class BranchOfficeController : Controller
+    public class ProductController : Controller
     {
-        private readonly IBranchOffice _branchOffice;
+        private readonly IProduct _product;
 
-        public BranchOfficeController(IBranchOffice branchOffice)
+        public ProductController(IProduct product)
         {
-            _branchOffice = branchOffice;
+            _product = product;
         }
 
         public ActionResult Index()
@@ -19,19 +19,25 @@ namespace Shop.Controllers
             return View();
         }
 
+        public ActionResult GetProducts()
+        {
+            var branchOffices = _product.GetList();
+
+            return Json(branchOffices);
+        }
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] BranchOffice branchOffice)
+        public ActionResult Create([FromBody] Product product)
         {
-            branchOffice.CreatedAt = DateTime.Now;
+            product.CreatedAt = DateTime.Now;
 
             try
             {
-                _branchOffice.Add(branchOffice);
+                _product.Add(product);
             }
             catch
             {
@@ -39,28 +45,21 @@ namespace Shop.Controllers
             }
 
             return Json("Success");
-        }
-    
-        public ActionResult GetBranchOffices()
-        {
-            var branchOffices = _branchOffice.GetList();
-
-            return Json(branchOffices);
         }
 
         public ActionResult Edit(int id)
         {
-            var branchOffice =  _branchOffice.Get(id);
+            var product = _product.Get(id);
 
-            return View(branchOffice);
+            return View(product);
         }
 
         [HttpPost]
-        public ActionResult Edit([FromBody] BranchOffice branchOffice)
+        public ActionResult Edit([FromBody] Product product)
         {
             try
             {
-                _branchOffice.Edit(branchOffice);
+                _product.Edit(product);
             }
             catch
             {
@@ -71,11 +70,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete([FromBody] BranchOffice branchOffice)
+        public ActionResult Delete([FromBody] Product product)
         {
             try
             {
-                _branchOffice.Delete(branchOffice.Id);
+                _product.Delete(product.Id);
             }
             catch
             {

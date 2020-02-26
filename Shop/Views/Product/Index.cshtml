@@ -1,11 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Список филиалов";
+    ViewData["Title"] = "Список товаров";
 }
 
 <h2>Список</h2>
 
 <div>
-    <h4>Филиалов</h4>
+    <h4>Товаров</h4>
 </div>
 
 <table class="table">
@@ -15,10 +15,7 @@
                 Название
             </th>
             <th>
-                Адрес
-            </th>
-            <th>
-                Номер телефона
+                Цена
             </th>
             <th />
         </tr>
@@ -50,24 +47,24 @@
         if (document.readyState != "loading") callback();
         else document.addEventListener("DOMContentLoaded", callback);
     }
-    ready(getBranchOffices);
+    ready(getProducts);
 
-    function getBranchOffices() {
-        getContext("BranchOffice", "GetBranchOffices")
+    function getProducts() {
+        getContext("Product", "GetProducts")
             .then(response => response.json())
             .then(function (commits) {
                 if (commits != 0 && commits != null) {
-                    commits.forEach(element => unpackingBranchOffices(element));
+                    commits.forEach(element => unpackingProducts(element));
                 }
                 else {
-                    unpackingBranchOffices();
+                    unpackingProducts();
                }
             });
     }
 
-    function unpackingBranchOffices(element) {
+    function unpackingProducts(element) {
         if (element == undefined) {
-            element = { id: "Null", name: "Null", address: "Null", phoneNumber: "Null" };
+            element = { id: "Null", name: "Null", price: "Null" };
         }
         var tr = document.createElement("tr");
 
@@ -76,15 +73,11 @@
         tr.appendChild(th);
 
         th = document.createElement("th");
-        th.textContent = element.address;
+        th.textContent = element.price;
         tr.appendChild(th);
 
         th = document.createElement("th");
-        th.textContent = element.phoneNumber;
-        tr.appendChild(th);
-        
-        th = document.createElement("th");
-        
+
         if (element.id != "Null") {
             var a = document.createElement("a");
             a.href = "#";
@@ -106,20 +99,20 @@
     }
 
     function Edit(itemId) {
-        window.location.href = "/branchoffice/edit?id=" + itemId;
+        window.location.href = "/product/edit?id=" + itemId;
     }
 
     function Delete(itemId, name) {
-        var isDelete = confirm("Удалить магазин " + name + "?");
+        var isDelete = confirm("Удалить товар " + name + "?");
         if (isDelete) {
-            postContext("BranchOffice", "Delete", JSON.stringify({
+            postContext("Product", "Delete", JSON.stringify({
                 Id: itemId
             }))
                 .then(response => response.json())
                 .then(function (commit) {
                     if (commit == "Success") {
                         alert("Удалено!");
-                        window.location.href = "/branchoffice";
+                        window.location.href = "/product";
                     }
                     else {
                         alert(commit);

@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Добавление филиала";
+﻿@model Shop.Domain.Core.Storage
+
+@{
+    ViewData["Title"] = "Редактирование филиала";
 }
 
-<h2>Добавление</h2>
+<h2>Редактирование</h2>
 
 <div class="form-horizontal">
     <h4>Филиал</h4>
@@ -10,31 +12,28 @@
 
     <div class="form-group">
         <div class="col-md-10">
-            <input class="form-control" type="text" id="nameBranchOffice" placeholder="Название" />
+            <input class="form-control" type="text" id="nameStorage" placeholder="Название" value="@Model.Name" />
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-10">
-            <input class="form-control" type="text" id="address" placeholder="Адрес" />
+            <input class="form-control" type="text" id="address" placeholder="Адрес" value="@Model.Address" />
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-10">
-            <input class="form-control" type="text" id="phoneNumber" placeholder="Номер телефона" />
+            <input class="form-control" type="text" id="phoneNumber" placeholder="Номер телефона" value="@Model.PhoneNumber" />
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input class="btn btn-default" type="submit" onclick="Create()" value="Добавить" />
+            <input class="btn btn-default" type="submit" onclick="Edit()" value="Сохранить" />
+            <input class="btn btn-default" type="submit" onclick="Cancel()" value="Отменить" />
         </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Вернутся к списку</a>
 </div>
 
 <script>
@@ -48,22 +47,26 @@
         });
     }
 
-    function Create() {
-        postContext("BranchOffice", "Create", JSON.stringify({
-            Name: nameBranchOffice.value,
+    function Edit() {
+        postContext("Storage", "Edit", JSON.stringify({
+            Id: @Model.Id,
+            Name: nameStorage.value,
             Address: address.value,
             PhoneNumber: parseInt(phoneNumber.value, 10)
         }))
             .then(response => response.json())
             .then(function (commit) {
                 if (commit == "Success") {
-                    alert("Добавлено!");
-                    nameBranchOffice.value = "";
-                    phoneNumber.value = "";
+                    alert("Изменено!");
+                    window.location.href = "/storage";
                 }
                 else {
                     alert(commit);
                 }
             });
+    }
+
+    function Cancel() {
+        window.location.href = "/storage";
     }
 </script>

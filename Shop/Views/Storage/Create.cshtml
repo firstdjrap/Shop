@@ -1,16 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Добавление филиала";
+    ViewData["Title"] = "Добавление склада";
 }
 
 <h2>Добавление</h2>
 
 <div class="form-horizontal">
-    <h4>Филиал</h4>
+    <h4>Склад</h4>
     <hr />
 
     <div class="form-group">
         <div class="col-md-10">
-            <input class="form-control" type="text" id="nameBranchOffice" placeholder="Название" />
+            <input class="form-control" type="text" id="nameStorage" placeholder="Название" />
         </div>
     </div>
 
@@ -49,8 +49,8 @@
     }
 
     function Create() {
-        postContext("BranchOffice", "Create", JSON.stringify({
-            Name: nameBranchOffice.value,
+        postContext("Storage", "Create", JSON.stringify({
+            Name: nameStorage.value,
             Address: address.value,
             PhoneNumber: parseInt(phoneNumber.value, 10)
         }))
@@ -58,7 +58,7 @@
             .then(function (commit) {
                 if (commit == "Success") {
                     alert("Добавлено!");
-                    nameBranchOffice.value = "";
+                    nameStorage.value = "";
                     phoneNumber.value = "";
                 }
                 else {

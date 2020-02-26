@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Shop.Domain.Interfaces;
 using Shop.Infrastructure.Business;
 using Shop.Infrastructure.Data;
+using Shop.Mapping;
 using Shop.Services.Interfaces;
 
 namespace Shop
@@ -22,6 +24,14 @@ namespace Shop
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ShopContext>(options => options.UseSqlServer(connection, sqlServerOptions => sqlServerOptions.MigrationsAssembly("Shop")));
 
@@ -39,9 +49,10 @@ namespace Shop
 
             services.AddScoped<IBranchOffice, BranchOfficeShop>();
             services.AddScoped<IClient, ClientAccount>();
-            services.AddScoped<IDelivery, StorageDelivery>();
             services.AddScoped<IEmployee, EmployeeAccount>();
             services.AddScoped<IOrder, BankCardOrder>();
+            services.AddScoped<IProduct, ProductShop>();
+            services.AddScoped<IStorage, StorageShop>();
 
             services.AddControllersWithViews();
         }

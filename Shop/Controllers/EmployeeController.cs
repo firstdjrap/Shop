@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Domain.Core;
 using Shop.Models;
 using Shop.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Shop.Controllers
 {
     public class EmployeeController : Controller
     {
+        readonly IMapper _mapper;
         private readonly IEmployee _employee;
 
-        public EmployeeController(IEmployee employee)
+        public EmployeeController(IMapper mapper, IEmployee employee)
         {
+            _mapper = mapper;
             _employee = employee;
         }
 
@@ -61,6 +65,20 @@ namespace Shop.Controllers
                 return Json("Ошибка! Пользователь с такими данными уже существует!");
 
             return Json("Success");
+        }
+
+        public ActionResult List()
+        {
+            return View();
+        }
+
+        public ActionResult GetEmployees()
+        {
+            var employee = _employee.GetList();
+
+            var employeeOutput = _mapper.Map<IEnumerable<EmployeeOutputViewModel>>(employee);
+            
+            return Json(employeeOutput);
         }
     }
 }

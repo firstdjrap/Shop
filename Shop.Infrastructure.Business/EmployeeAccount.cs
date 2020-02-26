@@ -1,6 +1,7 @@
 ﻿using Shop.Domain.Core;
 using Shop.Domain.Interfaces;
 using Shop.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace Shop.Infrastructure.Business
 {
@@ -27,6 +28,11 @@ namespace Shop.Infrastructure.Business
         public Employee VerifyEmployee(Employee employee)
         {
             return _employeeRepository.VerifyEmployee(employee);
+        }
+
+        public IEnumerable<Employee> GetList()
+        {
+            return _employeeRepository.GetList();
         }
     }
 }

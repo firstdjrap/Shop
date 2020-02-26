@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
@@ -18,6 +19,10 @@
     <ProjectReference Include="..\Shop.Infrastructure.Business\Shop.Infrastructure.Business.csproj" />
     <ProjectReference Include="..\Shop.Infrastructure.Data\Shop.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\Shop.Services.Interfaces\Shop.Services.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\DiscountCard\" />
   </ItemGroup>
 
 

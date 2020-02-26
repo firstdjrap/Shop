@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shop</a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Shop</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,17 +19,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="index">Домой</a>
+                            <a class="nav-link text-dark" asp-controller="home" asp-action="index">Домой</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="product" asp-action="index">Товары</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="signup">Регистрация</a>
+                            <a class="nav-link text-dark" asp-controller="account" asp-action="signup">Регистрация</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="signin">Вход</a>
+                            <a class="nav-link text-dark" asp-controller="account" asp-action="signin">Вход</a>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +47,13 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Shop <a asp-area="" asp-controller="employee" asp-action="signin">Вход</a>
+            &copy; 2020 - Shop <a asp-controller="employee" asp-action="signin">Вход</a>
+            |
+            <a asp-controller="employee" asp-action="list">Сотрудники</a>
+            |
+            <a asp-controller="branchoffice" asp-action="">Филиалы</a>
+            |
+            <a asp-controller="storage" asp-action="">Склады</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

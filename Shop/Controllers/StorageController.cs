@@ -5,13 +5,13 @@ using System;
 
 namespace Shop.Controllers
 {
-    public class BranchOfficeController : Controller
+    public class StorageController : Controller
     {
-        private readonly IBranchOffice _branchOffice;
+        private readonly IStorage _storage;
 
-        public BranchOfficeController(IBranchOffice branchOffice)
+        public StorageController(IStorage storage)
         {
-            _branchOffice = branchOffice;
+            _storage = storage;
         }
 
         public ActionResult Index()
@@ -25,13 +25,13 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] BranchOffice branchOffice)
+        public ActionResult Create([FromBody] Storage storage)
         {
-            branchOffice.CreatedAt = DateTime.Now;
+            storage.CreatedAt = DateTime.Now;
 
             try
             {
-                _branchOffice.Add(branchOffice);
+                _storage.Add(storage);
             }
             catch
             {
@@ -40,27 +40,27 @@ namespace Shop.Controllers
 
             return Json("Success");
         }
-    
-        public ActionResult GetBranchOffices()
-        {
-            var branchOffices = _branchOffice.GetList();
 
-            return Json(branchOffices);
+        public ActionResult GetStorages()
+        {
+            var storages = _storage.GetList();
+
+            return Json(storages);
         }
 
         public ActionResult Edit(int id)
         {
-            var branchOffice =  _branchOffice.Get(id);
+            var storage = _storage.Get(id);
 
-            return View(branchOffice);
+            return View(storage);
         }
 
         [HttpPost]
-        public ActionResult Edit([FromBody] BranchOffice branchOffice)
+        public ActionResult Edit([FromBody] Storage storage)
         {
             try
             {
-                _branchOffice.Edit(branchOffice);
+                _storage.Edit(storage);
             }
             catch
             {
@@ -71,11 +71,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete([FromBody] BranchOffice branchOffice)
+        public ActionResult Delete([FromBody] Storage storage)
         {
             try
             {
-                _branchOffice.Delete(branchOffice.Id);
+                _storage.Delete(storage.Id);
             }
             catch
             {
