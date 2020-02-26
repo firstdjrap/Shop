@@ -10,6 +10,7 @@ namespace Shop.Domain.Core
 
         public int? BranchOfficeId { get; set; }
         public BranchOffice BranchOffice { get; set; }
+        public int? OrderId { get; set; }
         public Order Order { get; set; }
         public int? StorageId { get; set; }
         public Storage Storage { get; set; }

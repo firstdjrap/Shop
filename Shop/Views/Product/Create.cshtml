@@ -21,6 +21,22 @@
     </div>
 
     <div class="form-group">
+        <div class="col-md-10">
+            <select class="form-control" id="locationProduct" onchange="changeLocationProduct()">
+                <option selected disabled>Выберите из списка</option>
+                <option>Филиал</option>
+                <option>Склад</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <select class="form-control" id="storageLocation" hidden></select>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input class="btn btn-default" type="submit" onclick="Create()" value="Добавить" />
         </div>
@@ -32,6 +48,10 @@
 </div>
 
 <script>
+    function getContext(controller, action) {
+        return fetch("/" + controller + "/" + action);
+    }
+
     function postContext(controller, action, body) {
         return fetch("/" + controller + "/" + action, {
             method: "Post",
@@ -42,11 +62,26 @@
         });
     }
 
+    function additionalPostContext() {
+        if (locationProduct.selectedIndex == 1) {
+            return postContext("Product", "Create", JSON.stringify({
+                Name: nameProduct.value,
+                Price: parseInt(price.value),
+                BranchOfficeId: parseInt(storageLocation.options[storageLocation.selectedIndex].getAttribute("itemid"))
+            }));
+        }
+        else if (locationProduct.selectedIndex == 2) {
+            return postContext("Product", "Create", JSON.stringify({
+                Name: nameProduct.value,
+                Price: parseInt(price.value),
+                StorageId: parseInt(storageLocation.options[storageLocation.selectedIndex].getAttribute("itemid"))
+            }));
+        }
+        return;
+    }
+
     function Create() {
-        postContext("Product", "Create", JSON.stringify({
-            Name: nameProduct.value,
-            Price: parseInt(price.value)
-        }))
+        additionalPostContext()
             .then(response => response.json())
             .then(function (commit) {
                 if (commit == "Success") {
@@ -58,5 +93,55 @@
                     alert(commit);
                 }
             });
+    }
+
+    function changeLocationProduct() {
+        while (storageLocation.firstChild)
+            storageLocation.removeChild(storageLocation.firstChild);
+
+        var option = document.createElement("option");
+        option.textContent = "Выберите из списка";
+        option.selected = true;
+        option.disabled = true;
+        storageLocation.appendChild(option);
+
+        if (locationProduct.selectedIndex == 1) {
+            getContext("BranchOffice", "GetBranchOffices")
+            .then(response => response.json())
+            .then(function (commits) {
+                if (commits != 0 && commits != null) {
+                    commits.forEach(element => unpackingLocationProducts(element));
+                }
+                else {
+                    unpackingLocationProducts();
+               }
+            });
+        }
+        else if (locationProduct.selectedIndex == 2) {
+            getContext("Storage", "GetStorages")
+            .then(response => response.json())
+            .then(function (commits) {
+                if (commits != 0 && commits != null) {
+                    commits.forEach(element => unpackingLocationProducts(element));
+                }
+                else {
+                    unpackingLocationProducts();
+               }
+            });
+        }
+    }
+
+    function unpackingLocationProducts(element) {
+        if (element == undefined) {
+            storageLocation.hidden = true;
+            return;
+        }
+
+        storageLocation.hidden = false;
+
+        var option = document.createElement("option");
+        option.setAttribute("itemid", element.id);
+        option.textContent = element.name +" (" + element.address + ")";
+        storageLocation.appendChild(option);
     }
 </script>

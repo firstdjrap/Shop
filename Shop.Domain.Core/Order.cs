@@ -16,7 +16,6 @@ namespace Shop.Domain.Core
         public Delivery Delivery { get; set; }
         public int? PurchaseReturnId { get; set; }
         public PurchaseReturn PurchaseReturn { get; set; }
-        public int? RentId { get; set; }
         public Rent Rent { get; set; }
         public int ClientId { get; set; }
         public Client Client { get; set; }

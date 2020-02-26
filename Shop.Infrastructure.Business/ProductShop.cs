@@ -31,6 +31,8 @@ namespace Shop.Infrastructure.Business
             var baseProduct = _productRepository.GetById(product.Id);
             baseProduct.Name = product.Name;
             baseProduct.Price = product.Price;
+            baseProduct.BranchOfficeId = product.BranchOfficeId;
+            baseProduct.StorageId = product.StorageId;
 
             _productRepository.Edit(baseProduct);
             _productRepository.Save();
