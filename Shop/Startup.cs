@@ -49,8 +49,8 @@ namespace Shop
 
             services.AddScoped<IBranchOffice, BranchOfficeShop>();
             services.AddScoped<IClient, ClientAccount>();
+            services.AddScoped<IDiscountCard, DiscountCardShop>();
             services.AddScoped<IEmployee, EmployeeAccount>();
-            services.AddScoped<IOrder, BankCardOrder>();
             services.AddScoped<IProduct, ProductShop>();
             services.AddScoped<IStorage, StorageShop>();
 

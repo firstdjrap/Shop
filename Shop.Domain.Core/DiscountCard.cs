@@ -6,7 +6,7 @@ namespace Shop.Domain.Core
     {
         public int Id { get; set; }
 
-        public int Number { get; set; }
+        public string Number { get; set; }
         public int Percent { get; set; }
         public int LifeTime { get; set; }
 

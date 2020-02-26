@@ -52,7 +52,7 @@
         postContext("BranchOffice", "Create", JSON.stringify({
             Name: nameBranchOffice.value,
             Address: address.value,
-            PhoneNumber: parseInt(phoneNumber.value, 10)
+            PhoneNumber: parseInt(phoneNumber.value)
         }))
             .then(response => response.json())
             .then(function (commit) {

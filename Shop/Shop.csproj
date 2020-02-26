@@ -21,10 +21,6 @@
     <ProjectReference Include="..\Shop.Services.Interfaces\Shop.Services.Interfaces.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\DiscountCard\" />
-  </ItemGroup>
-
 
 
 </Project>

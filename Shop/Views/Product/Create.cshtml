@@ -45,7 +45,7 @@
     function Create() {
         postContext("Product", "Create", JSON.stringify({
             Name: nameProduct.value,
-            Price: parseInt(price.value, 10)
+            Price: parseInt(price.value)
         }))
             .then(response => response.json())
             .then(function (commit) {

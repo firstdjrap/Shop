@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Добавление дисконтной карты";
+}
+
+<h2>Добавление</h2>
+
+<div class="form-horizontal">
+    <h4>Дисконтная карта</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="number" placeholder="Номер" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="percent" placeholder="Проценты" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="lifeTime" placeholder="Срок действия" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-default" type="submit" onclick="Create()" value="Добавить" />
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">Вернутся к списку</a>
+</div>
+
+<script>
+    for (var i in ['input', 'change', 'blur', 'keyup']) {
+        number.addEventListener('input', formatCardCode, false);
+    }
+
+    function formatCardCode() {
+        var cardCode = this.value.replace(/[^\d]/g, '').substring(0,16);
+        cardCode = cardCode != '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
+        this.value = cardCode;
+    }
+
+    function convertDateToMonth(date) {
+        date = date.split('/');
+        var nowDate = new Date();
+
+        var year = date[1] - nowDate.getFullYear();
+        var month = date[0] - ( nowDate.getMonth() + 1 );
+        if (month < 0) {
+            year--;
+            month = 12 + month;
+        }
+
+        return year * 12 + month;
+    }
+
+    function postContext(controller, action, body) {
+        return fetch("/" + controller + "/" + action, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body
+        });
+    }
+
+    function Create() {
+        postContext("DiscountCard", "Create", JSON.stringify({
+            Number: number.value,
+            Percent: parseInt(percent.value),
+            LifeTime: parseInt(convertDateToMonth(lifeTime.value))
+        }))
+            .then(response => response.json())
+            .then(function (commit) {
+                if (commit == "Success") {
+                    alert("Добавлено!");
+                    percent.value = "";
+                    lifeTime.value = "";
+                }
+                else {
+                    alert(commit);
+                }
+            });
+    }
+</script>

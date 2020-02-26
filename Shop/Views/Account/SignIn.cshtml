@@ -40,7 +40,7 @@
 
     function Login() {
         postContext("Account", "SignIn", JSON.stringify({
-            PhoneNumber: parseInt(phoneNumber.value, 10),
+            PhoneNumber: parseInt(phoneNumber.value),
             Password: password.value
         }))
             .then(response => response.json())

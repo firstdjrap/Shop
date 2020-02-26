@@ -1,0 +1,120 @@
+﻿@model Shop.Domain.Core.DiscountCard
+
+@{
+    ViewData["Title"] = "Редактирование дисконтной карты";
+}
+
+<h2>Редактирование</h2>
+
+<div class="form-horizontal">
+    <h4>Дисконтная карта</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="number" placeholder="Номер" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" value="@Model.Number" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="percent" placeholder="Проценты" value="@Model.Percent" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="lifeTime" placeholder="Срок действия" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-default" type="submit" onclick="Edit()" value="Сохранить" />
+            <input class="btn btn-default" type="submit" onclick="Cancel()" value="Отменить" />
+        </div>
+    </div>
+</div>
+
+<script>
+    for (var i in ['input', 'change', 'blur', 'keyup']) {
+        number.addEventListener('input', formatCardCode, false);
+    }
+
+    function formatCardCode() {
+        var cardCode = this.value.replace(/[^\d]/g, '').substring(0,16);
+        cardCode = cardCode != '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
+        this.value = cardCode;
+    }
+
+    function convertDateToMonth(date) {
+        date = date.split('/');
+        var nowDate = new Date();
+
+        var year = date[1] - nowDate.getFullYear();
+        var month = date[0] - ( nowDate.getMonth() + 1 );
+        if (month < 0) {
+            year--;
+            month = 12 + month;
+        }
+
+        return year * 12 + month;
+    }
+
+    function convertMonthToDate(month, createdAt) {
+        dateCreate = createdAt.split('.');
+        dateCreate[0] = dateCreate[2].split(' ');
+
+        var yearD = Math.floor(month / 12);
+        var year = parseInt(dateCreate[0]) + yearD;
+
+        month = parseInt(dateCreate[1]) + month - yearD * 12;
+
+        if (month > 12) {
+            year++;
+
+            month = month - 12;
+        }
+
+        lifeTime.value = month + "/" + year;
+    }
+
+    function ready(callback) {
+        if (document.readyState != "loading") callback();
+        else document.addEventListener("DOMContentLoaded", callback);
+    }
+    ready(convertMonthToDate(@Model.LifeTime, '@Model.CreatedAt'));
+
+    function postContext(controller, action, body) {
+        return fetch("/" + controller + "/" + action, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body
+        });
+    }
+
+    function Edit() {
+        postContext("DiscountCard", "Edit", JSON.stringify({
+            Id: @Model.Id,
+            Number: number.value,
+            Percent: parseInt(percent.value),
+            LifeTime: parseInt(convertDateToMonth(lifeTime.value))
+        }))
+            .then(response => response.json())
+            .then(function (commit) {
+                if (commit == "Success") {
+                    alert("Изменено!");
+                    window.location.href = "/discountcard/list";
+                }
+                else {
+                    alert(commit);
+                }
+            });
+    }
+
+    function Cancel() {
+        window.location.href = "/discountcard/list";
+    }
+</script>

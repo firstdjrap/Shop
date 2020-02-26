@@ -54,7 +54,7 @@
         postContext("Employee", "SignUp", JSON.stringify({
             FirstName: firstName.value,
             LastName: lastName.value,
-            PhoneNumber: parseInt(phoneNumber.value, 10),
+            PhoneNumber: parseInt(phoneNumber.value),
             Password: password.value
         }))
             .then(response => response.json())

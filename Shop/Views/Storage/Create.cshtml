@@ -52,7 +52,7 @@
         postContext("Storage", "Create", JSON.stringify({
             Name: nameStorage.value,
             Address: address.value,
-            PhoneNumber: parseInt(phoneNumber.value, 10)
+            PhoneNumber: parseInt(phoneNumber.value)
         }))
             .then(response => response.json())
             .then(function (commit) {
