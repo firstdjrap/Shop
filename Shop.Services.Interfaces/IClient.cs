@@ -6,5 +6,6 @@ namespace Shop.Services.Interfaces
     {
         bool CreateEmployee(Client client);
         Client VerifyEmployee(Client client);
+        bool AddDiscountCard(int id, string number);
     }
 }

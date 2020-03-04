@@ -37,16 +37,6 @@
 </div>
 
 <script>
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function Edit() {
         postContext("BranchOffice", "Edit", JSON.stringify({
             Id: @Model.Id,

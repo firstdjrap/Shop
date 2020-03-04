@@ -47,6 +47,11 @@ namespace Shop.Infrastructure.Data
             return _shopContext.Clients.FirstOrDefault(e => e.PhoneNumber == phoneNumber);
         }
 
+        public Client GetByDiscountCard(int id)
+        {
+            return _shopContext.Clients.FirstOrDefault(e => e.DiscountCardId == id);
+        }
+
         public IEnumerable<Client> GetList()
         {
             return _shopContext.Clients.ToList();

@@ -221,19 +221,16 @@ namespace Shop.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeliveryId")
+                    b.Property<int?>("DeliveryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PaymentMethod")
+                    b.Property<int?>("PaymentMethod")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<int?>("PurchaseReturnId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -244,15 +241,12 @@ namespace Shop.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("DeliveryId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[DeliveryId] IS NOT NULL");
 
                     b.HasIndex("PurchaseReturnId")
                         .IsUnique()
                         .HasFilter("[PurchaseReturnId] IS NOT NULL");
-
-                    b.HasIndex("RentId")
-                        .IsUnique()
-                        .HasFilter("[RentId] IS NOT NULL");
 
                     b.ToTable("Orders");
                 });
@@ -368,6 +362,12 @@ namespace Shop.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Percent")
+                        .HasColumnType("int");
+
                     b.Property<int>("RentalPeriod")
                         .HasColumnType("int");
 
@@ -377,6 +377,10 @@ namespace Shop.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BranchOfficeId");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique()
+                        .HasFilter("[OrderId] IS NOT NULL");
 
                     b.HasIndex("StorageId");
 
@@ -450,17 +454,11 @@ namespace Shop.Migrations
 
                     b.HasOne("Shop.Domain.Core.Delivery", "Delivery")
                         .WithOne("Order")
-                        .HasForeignKey("Shop.Domain.Core.Order", "DeliveryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Shop.Domain.Core.Order", "DeliveryId");
 
                     b.HasOne("Shop.Domain.Core.PurchaseReturn", "PurchaseReturn")
                         .WithOne("Order")
                         .HasForeignKey("Shop.Domain.Core.Order", "PurchaseReturnId");
-
-                    b.HasOne("Shop.Domain.Core.Rent", "Rent")
-                        .WithOne("Order")
-                        .HasForeignKey("Shop.Domain.Core.Order", "RentId");
                 });
 
             modelBuilder.Entity("Shop.Domain.Core.OrderProduct", b =>
@@ -502,6 +500,10 @@ namespace Shop.Migrations
                     b.HasOne("Shop.Domain.Core.BranchOffice", "BranchOffice")
                         .WithMany("Rents")
                         .HasForeignKey("BranchOfficeId");
+
+                    b.HasOne("Shop.Domain.Core.Order", "Order")
+                        .WithOne("Rent")
+                        .HasForeignKey("Shop.Domain.Core.Rent", "OrderId");
 
                     b.HasOne("Shop.Domain.Core.Storage", "Storage")
                         .WithMany("Rents")

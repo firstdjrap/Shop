@@ -11,6 +11,7 @@ namespace Shop.Domain.Interfaces
         Client VerifyEmployee(Client client);
         Client GetById(int id);
         Client GetByPhone(int phoneNumber);
+        Client GetByDiscountCard(int id);
         IEnumerable<Client> GetList();
         void Save();
     }

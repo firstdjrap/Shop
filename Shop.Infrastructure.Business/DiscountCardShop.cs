@@ -37,9 +37,14 @@ namespace Shop.Infrastructure.Business
             _discountCardRepository.Save();
         }
 
-        public DiscountCard Get(int id)
+        public DiscountCard GetById(int id)
         {
             return _discountCardRepository.GetById(id);
+        }
+
+        public DiscountCard GetByNumber(string number)
+        {
+            return _discountCardRepository.GetByNumber(number);
         }
 
         public IEnumerable<DiscountCard> GetList()

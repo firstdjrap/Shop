@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Shop.Domain.Core
 {
@@ -13,6 +14,7 @@ namespace Shop.Domain.Core
         public int PhoneNumber { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
+        [JsonIgnore]
         public ICollection<Product> Products { get; set; }
         public ICollection<Rent> Rents { get; set; }
 

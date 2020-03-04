@@ -37,7 +37,7 @@ namespace Shop.Infrastructure.Business
             _storageRepository.Save();
         }
 
-        public Storage Get(int id)
+        public Storage GetById(int id)
         {
             return _storageRepository.GetById(id);
         }

@@ -38,16 +38,6 @@
 </div>
 
 <script>
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function Create() {
         postContext("BranchOffice", "Create", JSON.stringify({
             Name: nameBranchOffice.value,

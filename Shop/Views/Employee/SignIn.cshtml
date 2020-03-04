@@ -32,17 +32,6 @@
 </div>
 
 <script>
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json",
-                "Action": action
-            },
-            body: body
-        });
-    }
-
     function Login() {
         postContext("Employee", "SignIn", JSON.stringify({
             PhoneNumber: parseInt(phoneNumber.value),

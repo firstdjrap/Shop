@@ -40,16 +40,6 @@
 </div>
 
 <script>
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function Register() {
         postContext("Employee", "SignUp", JSON.stringify({
             FirstName: firstName.value,

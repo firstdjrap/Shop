@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Shop.Domain.Core;
 using Shop.Services.Interfaces;
 using System;
@@ -49,7 +50,7 @@ namespace Shop.Controllers
 
         public ActionResult Edit(int id)
         {
-            var product = _product.Get(id);
+            var product = _product.GetById(id);
 
             return View(product);
         }
@@ -70,11 +71,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete([FromBody] Product product)
+        public ActionResult Delete([FromBody] int id)
         {
             try
             {
-                _product.Delete(product.Id);
+                _product.Delete(id);
             }
             catch
             {

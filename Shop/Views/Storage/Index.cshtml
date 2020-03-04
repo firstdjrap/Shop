@@ -32,20 +32,6 @@
 </div>
 
 <script>
-    function getContext(controller, action) {
-            return fetch("/" + controller + "/" + action);
-        }
-
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function ready(callback) {
         if (document.readyState != "loading") callback();
         else document.addEventListener("DOMContentLoaded", callback);
@@ -112,9 +98,7 @@
     function Delete(itemId, name) {
         var isDelete = confirm("Удалить склад " + name + "?");
         if (isDelete) {
-            postContext("Storage", "Delete", JSON.stringify({
-                Id: itemId
-            }))
+            postContext("Storage", "Delete", JSON.stringify(itemId))
                 .then(response => response.json())
                 .then(function (commit) {
                     if (commit == "Success") {

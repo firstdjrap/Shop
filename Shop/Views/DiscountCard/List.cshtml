@@ -49,20 +49,6 @@
         return month + "/" + year;
     }
 
-    function getContext(controller, action) {
-        return fetch("/" + controller + "/" + action);
-    }
-
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function ready(callback) {
         if (document.readyState != "loading") callback();
         else document.addEventListener("DOMContentLoaded", callback);
@@ -129,9 +115,7 @@
     function Delete(itemId, name) {
         var isDelete = confirm("Удалить карту " + name + "?");
         if (isDelete) {
-            postContext("DiscountCard", "Delete", JSON.stringify({
-                Id: itemId
-            }))
+            postContext("DiscountCard", "Delete", JSON.stringify(itemId))
                 .then(response => response.json())
                 .then(function (commit) {
                     if (commit == "Success") {

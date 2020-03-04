@@ -8,7 +8,7 @@ namespace Shop.Services.Interfaces
         void Add(Product product);
         void Delete(int id);
         void Edit(Product product);
-        Product Get(int id);
+        Product GetById(int id);
         IEnumerable<Product> GetList();
     }
 }

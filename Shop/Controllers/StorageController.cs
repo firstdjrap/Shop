@@ -50,7 +50,7 @@ namespace Shop.Controllers
 
         public ActionResult Edit(int id)
         {
-            var storage = _storage.Get(id);
+            var storage = _storage.GetById(id);
 
             return View(storage);
         }
@@ -71,11 +71,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete([FromBody] Storage storage)
+        public ActionResult Delete([FromBody] int id)
         {
             try
             {
-                _storage.Delete(storage.Id);
+                _storage.Delete(id);
             }
             catch
             {

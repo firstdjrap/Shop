@@ -38,7 +38,7 @@ namespace Shop.Infrastructure.Business
             _productRepository.Save();
         }
 
-        public Product Get(int id)
+        public Product GetById(int id)
         {
             return _productRepository.GetById(id);
         }

@@ -17,6 +17,9 @@
             <th>
                 Цена
             </th>
+            <th>
+                Расположение
+            </th>
             <th />
         </tr>
     </thead>
@@ -29,20 +32,6 @@
 </div>
 
 <script>
-    function getContext(controller, action) {
-            return fetch("/" + controller + "/" + action);
-        }
-
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function ready(callback) {
         if (document.readyState != "loading") callback();
         else document.addEventListener("DOMContentLoaded", callback);
@@ -77,6 +66,13 @@
         tr.appendChild(th);
 
         th = document.createElement("th");
+        if (element.branchOfficeId != null)
+            th.textContent = element.branchOffice.name + " (" + element.branchOffice.address + ")";
+        else if (element.storageId != null)
+            th.textContent = element.storage.name;
+        tr.appendChild(th);
+
+        th = document.createElement("th");
 
         if (element.id != "Null") {
             var a = document.createElement("a");
@@ -92,6 +88,14 @@
             a.setAttribute("onclick", "Delete(" + element.id + ", '" + element.name + "')");
             a.textContent = "Удалить";
             th.appendChild(a);
+
+            th.appendChild(document.createTextNode(" | "));
+
+            a = document.createElement("a");
+            a.href = "#";
+            a.setAttribute("onclick", "Add(" + element.id + ")");
+            a.textContent = "Купить";
+            th.appendChild(a);
         }
         tr.appendChild(th);
 
@@ -105,9 +109,7 @@
     function Delete(itemId, name) {
         var isDelete = confirm("Удалить товар " + name + "?");
         if (isDelete) {
-            postContext("Product", "Delete", JSON.stringify({
-                Id: itemId
-            }))
+            postContext("Product", "Delete", JSON.stringify(itemId))
                 .then(response => response.json())
                 .then(function (commit) {
                     if (commit == "Success") {
@@ -119,5 +121,9 @@
                     }
                 });
         }
+    }
+
+    function Add(itemId) {
+        window.location.href = "/order/create?id=" + itemId;
     }
 </script>

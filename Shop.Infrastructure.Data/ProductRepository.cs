@@ -34,12 +34,12 @@ namespace Shop.Infrastructure.Data
 
         public Product GetById(int id)
         {
-            return _shopContext.Products.Find(id);
+            return _shopContext.Products.Include(x => x.OrderProducts).SingleOrDefault(p => p.Id == id);
         }
 
         public IEnumerable<Product> GetList()
         {
-            return _shopContext.Products.ToList();
+            return _shopContext.Products.Include(p => p.BranchOffice).Include(p => p.Storage).ToList();
         }
 
         public void Save()

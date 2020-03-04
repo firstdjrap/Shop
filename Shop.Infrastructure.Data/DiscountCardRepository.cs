@@ -37,6 +37,11 @@ namespace Shop.Infrastructure.Data
             return _shopContext.DiscountCards.Find(id);
         }
 
+        public DiscountCard GetByNumber(string number)
+        {
+            return _shopContext.DiscountCards.FirstOrDefault(dc => dc.Number == number);
+        }
+
         public IEnumerable<DiscountCard> GetList()
         {
             return _shopContext.DiscountCards.ToList();

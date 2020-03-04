@@ -28,16 +28,6 @@
 </div>
 
 <script>
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function Login() {
         postContext("Account", "SignIn", JSON.stringify({
             PhoneNumber: parseInt(phoneNumber.value),

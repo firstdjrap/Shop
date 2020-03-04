@@ -48,20 +48,6 @@
 </div>
 
 <script>
-    function getContext(controller, action) {
-        return fetch("/" + controller + "/" + action);
-    }
-
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function additionalPostContext() {
         if (locationProduct.selectedIndex == 1) {
             return postContext("Product", "Create", JSON.stringify({
@@ -141,7 +127,7 @@
 
         var option = document.createElement("option");
         option.setAttribute("itemid", element.id);
-        option.textContent = element.name +" (" + element.address + ")";
+        option.textContent = element.name + " (" + element.address + ")";
         storageLocation.appendChild(option);
     }
 </script>

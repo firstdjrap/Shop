@@ -8,7 +8,7 @@ namespace Shop.Services.Interfaces
         void Add(BranchOffice branchOffice);
         void Delete(int id);
         void Edit(BranchOffice branchOffice);
-        BranchOffice Get(int id);
+        BranchOffice GetById(int id);
         IEnumerable<BranchOffice> GetList();
     }
 }

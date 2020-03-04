@@ -50,7 +50,7 @@ namespace Shop.Controllers
 
         public ActionResult Edit(int id)
         {
-            var branchOffice =  _branchOffice.Get(id);
+            var branchOffice =  _branchOffice.GetById(id);
 
             return View(branchOffice);
         }
@@ -71,11 +71,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete([FromBody] BranchOffice branchOffice)
+        public ActionResult Delete([FromBody] int id)
         {
             try
             {
-                _branchOffice.Delete(branchOffice.Id);
+                _branchOffice.Delete(id);
             }
             catch
             {

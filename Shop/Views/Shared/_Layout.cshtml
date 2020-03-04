@@ -55,6 +55,22 @@
             <a style="margin-left: 20px" asp-controller="discountcard" asp-action="List">Дисконтные карты</a>
         </div>
     </footer>
+    <script>
+        function getContext(controller, action) {
+            return fetch("/" + controller + "/" + action);
+        }
+
+        function postContext(controller, action, body) {
+            return fetch("/" + controller + "/" + action, {
+                method: "Post",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Accept': 'application/json'
+                },
+                body: body
+            });
+        }
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

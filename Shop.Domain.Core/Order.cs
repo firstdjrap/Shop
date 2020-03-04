@@ -9,10 +9,10 @@ namespace Shop.Domain.Core
 
         public string Status { get; set; }
         public int Price { get; set; }
-        public int PaymentMethod { get; set; }
+        public int? PaymentMethod { get; set; }
         public string Address { get; set; }
 
-        public int DeliveryId { get; set; }
+        public int? DeliveryId { get; set; }
         public Delivery Delivery { get; set; }
         public int? PurchaseReturnId { get; set; }
         public PurchaseReturn PurchaseReturn { get; set; }

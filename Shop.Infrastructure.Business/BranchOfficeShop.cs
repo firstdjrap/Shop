@@ -37,7 +37,7 @@ namespace Shop.Infrastructure.Business
             _branchOfficeRepository.Save();
         }
 
-        public BranchOffice Get(int id)
+        public BranchOffice GetById(int id)
         {
             return _branchOfficeRepository.GetById(id);
         }

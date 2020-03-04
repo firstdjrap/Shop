@@ -50,7 +50,7 @@ namespace Shop.Controllers
 
         public ActionResult Edit(int id)
         {
-            var discountCard = _discountCard.Get(id);
+            var discountCard = _discountCard.GetById(id);
 
             return View(discountCard);
         }
@@ -71,11 +71,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete([FromBody] DiscountCard discountCard)
+        public ActionResult Delete([FromBody] int id)
         {
             try
             {
-                _discountCard.Delete(discountCard.Id);
+                _discountCard.Delete(id);
             }
             catch
             {

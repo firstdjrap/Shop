@@ -9,6 +9,7 @@ namespace Shop.Domain.Interfaces
         void Delete(int id);
         void Edit(DiscountCard discountCard);
         DiscountCard GetById(int id);
+        DiscountCard GetByNumber(string number);
         IEnumerable<DiscountCard> GetList();
         void Save();
     }

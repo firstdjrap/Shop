@@ -63,5 +63,22 @@ namespace Shop.Controllers
 
             return Json("Success");
         }
+
+        public ActionResult DiscountCard()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddDiscountCard([FromBody] string number)
+        {
+            int id = 1;//TODO: добавить выборку из куков id клиента
+
+            var discountCard = _client.AddDiscountCard(id, number);
+            if (!discountCard)
+                return Json("Непредвиденная ошибка!");
+
+            return Json("Success");
+        }
     }
 }

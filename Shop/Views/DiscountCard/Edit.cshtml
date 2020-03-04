@@ -85,16 +85,6 @@
     }
     ready(convertMonthToDate(@Model.LifeTime, '@Model.CreatedAt'));
 
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function Edit() {
         postContext("DiscountCard", "Edit", JSON.stringify({
             Id: @Model.Id,

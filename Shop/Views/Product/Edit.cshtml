@@ -47,20 +47,6 @@
 </div>
 
 <script>
-    function getContext(controller, action) {
-        return fetch("/" + controller + "/" + action);
-    }
-
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function additionalPostContext() {
         if (locationProduct.selectedIndex == 1) {
             return postContext("Product", "Edit", JSON.stringify({

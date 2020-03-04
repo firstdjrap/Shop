@@ -8,7 +8,7 @@ namespace Shop.Services.Interfaces
         void Add(Storage storage);
         void Delete(int id);
         void Edit(Storage storage);
-        Storage Get(int id);
+        Storage GetById(int id);
         IEnumerable<Storage> GetList();
     }
 }

@@ -41,6 +41,7 @@ namespace Shop
             services.AddScoped<IDiscountCardRepository, DiscountCardRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IMarkdownRepository, MarkdownRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IPromotionRepository, PromotionRepository>();
             services.AddScoped<IPurchaseReturnRepository, PurchaseReturnRepository>();
@@ -51,6 +52,7 @@ namespace Shop
             services.AddScoped<IClient, ClientAccount>();
             services.AddScoped<IDiscountCard, DiscountCardShop>();
             services.AddScoped<IEmployee, EmployeeAccount>();
+            services.AddScoped<IOrder, OrderShop>();
             services.AddScoped<IProduct, ProductShop>();
             services.AddScoped<IStorage, StorageShop>();
 

@@ -8,7 +8,8 @@ namespace Shop.Services.Interfaces
         void Add(DiscountCard discountCard);
         void Delete(int id);
         void Edit(DiscountCard discountCard);
-        DiscountCard Get(int id);
+        DiscountCard GetById(int id);
+        DiscountCard GetByNumber(string number);
         IEnumerable<DiscountCard> GetList();
     }
 }

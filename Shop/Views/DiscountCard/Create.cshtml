@@ -62,16 +62,6 @@
         return year * 12 + month;
     }
 
-    function postContext(controller, action, body) {
-        return fetch("/" + controller + "/" + action, {
-            method: "Post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-    }
-
     function Create() {
         postContext("DiscountCard", "Create", JSON.stringify({
             Number: number.value,

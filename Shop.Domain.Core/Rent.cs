@@ -7,6 +7,7 @@ namespace Shop.Domain.Core
         public int Id { get; set; }
 
         public int RentalPeriod { get; set; }
+        public int Percent { get; set; }
 
         public int? BranchOfficeId { get; set; }
         public BranchOffice BranchOffice { get; set; }
